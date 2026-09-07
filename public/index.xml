@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>山猫的博客</title>
+		<link>http://localhost:1313/</link>
+		<description>Recent content on 山猫的博客</description>
+		<generator>Hugo</generator>
+		<language>zh-cn</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 07 Sep 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>我的第一篇博客</title>
+				<link>http://localhost:1313/posts/hello-world/</link>
+				<pubDate>Mon, 07 Sep 2026 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/hello-world/</guid>
+				<description>&lt;h1 id=&#34;我的第一篇博客&#34;&gt;我的第一篇博客&lt;/h1&gt;&#xA;&lt;p&gt;你好，这是我的第一个 Hugo 博客。&lt;/p&gt;&#xA;&lt;p&gt;以后这里会记录我的：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;AI&lt;/li&gt;&#xA;&lt;li&gt;R语言&lt;/li&gt;&#xA;&lt;li&gt;数据分析&lt;/li&gt;&#xA;&lt;li&gt;编程&lt;/li&gt;&#xA;&lt;li&gt;GitHub&lt;/li&gt;&#xA;&lt;li&gt;Minecraft&lt;/li&gt;&#xA;&lt;li&gt;各种折腾项目&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;欢迎来到我的博客。&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

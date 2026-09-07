@@ -1,0 +1,72 @@
+baseURL = 'http://localhost:1313/'
+languageCode = 'zh-cn'
+title = '山猫的博客'
+theme = 'mana'
+
+# 网站基本信息
+[params]
+  description = '记录 AI、R 语言、编程、Minecraft 与各种折腾'
+  favicon = '/favicon/favicon.ico'
+  heroTitleLine1 = '山猫的博客'
+  heroTitleLine2 = 'AI · R · Coding · Minecraft'
+  footerText = 'Built with Hugo and Mana'
+
+# GitHub
+[params.social]
+  github = 'https://github.com/Shan-Mao'
+
+# 首页头像
+[params.avatar]
+  [params.avatar.home]
+    assetPath = "images/transparent-logo.png"
+
+  [params.avatar.about]
+    assetPath = "images/logo.png"
+
+# 导航栏
+[[menus.main]]
+  name = '首页'
+  pageRef = '/'
+  weight = 10
+
+[[menus.main]]
+  name = '文章'
+  pageRef = '/posts'
+  weight = 20
+
+[[menus.main]]
+  name = '分类'
+  pageRef = '/categories'
+  weight = 30
+
+[[menus.main]]
+  name = '标签'
+  pageRef = '/tags'
+  weight = 30
+
+[[menus.main]]
+  name = '关于'
+  pageRef = '/about'
+  weight = 40
+
+# 每页显示 10 篇文章
+[pagination]
+  pageSize = 10
+
+# 文章目录
+[markup]
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel = 6
+    ordered = false
+
+  # 代码高亮
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    noClasses = false
+    style = 'catppuccin-macchiato'
+
+# 开启搜索需要 JSON
+[outputs]
+  home = ['HTML', 'JSON']
