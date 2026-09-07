@@ -7,9 +7,10 @@
   "leftRibbon": [
     {
       "id": "obsidian-git:push",
-      "icon": "lucide-arrow-big-up",
+      "icon": "lucide-archive-restore",
       "name": "Git: Commit-and-sync",
-      "mode": "any"
+      "mode": "any",
+      "color": "#ff0000"
     }
   ],
   "rightRibbon": [],

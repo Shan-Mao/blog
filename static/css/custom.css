@@ -1,0 +1,116 @@
+/* ========================================
+   山猫博客 - 自定义主题
+   亮/暗双背景 + 渐变遮罩 + 双主题色
+   ======================================== */
+
+
+/* ========================================
+   亮色主题
+   ======================================== */
+
+html[data-theme="light"] {
+  /* 主色：青蓝 */
+  --accent-primary: #0369a1;
+  --accent-mid-purple: #0284c7;
+  --accent-light-purple: #0ea5e9;
+  --accent-secondary: #0891b2;
+  --accent-hover: #0284c7;
+
+  /* 边框 */
+  --glass-border: rgba(14, 165, 233, 0.35);
+  --border-color: var(--glass-border);
+
+  /* 半透明效果 */
+  --accent-primary-rgba-03: rgba(3, 105, 161, 0.3);
+  --accent-primary-rgba-05: rgba(3, 105, 161, 0.5);
+
+  --accent-light-purple-rgba-01: rgba(14, 165, 233, 0.1);
+  --accent-light-purple-rgba-03: rgba(14, 165, 233, 0.3);
+
+  --accent-mid-purple-rgba-05: rgba(2, 132, 199, 0.05);
+  --accent-mid-purple-rgba-01: rgba(2, 132, 199, 0.1);
+  --accent-mid-purple-rgba-02: rgba(2, 132, 199, 0.2);
+
+  /* 标签 */
+  --tag-bg: rgba(14, 165, 233, 0.1);
+  --tag-color: #0369a1;
+}
+
+
+/* ========================================
+   暗色主题
+   ======================================== */
+
+html[data-theme="dark"] {
+  /* 主色：紫蓝 */
+  --accent-primary: #8b5cf6;
+  --accent-mid-purple: #a78bfa;
+  --accent-light-purple: #c4b5fd;
+  --accent-secondary: #22d3ee;
+  --accent-hover: #a78bfa;
+
+  /* 边框 */
+  --glass-border: rgba(139, 92, 246, 0.3);
+  --border-color: var(--glass-border);
+
+  /* 半透明效果 */
+  --accent-primary-rgba-03: rgba(139, 92, 246, 0.3);
+  --accent-primary-rgba-05: rgba(139, 92, 246, 0.5);
+
+  --accent-light-purple-rgba-01: rgba(196, 181, 253, 0.1);
+  --accent-light-purple-rgba-03: rgba(196, 181, 253, 0.3);
+
+  --accent-mid-purple-rgba-05: rgba(167, 139, 250, 0.05);
+  --accent-mid-purple-rgba-01: rgba(167, 139, 250, 0.1);
+  --accent-mid-purple-rgba-02: rgba(167, 139, 250, 0.2);
+
+  /* 标签 */
+  --tag-bg: rgba(139, 92, 246, 0.15);
+  --tag-color: #c4b5fd;
+}
+
+
+/* ========================================
+   亮色背景
+   ======================================== */
+
+html[data-theme="light"] body {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0) 35%,
+      rgba(255, 255, 255, 0.35) 55%,
+      rgba(255, 255, 255, 0.7) 75%,
+      rgba(255, 255, 255, 0.7) 100%
+    ),
+    url("/images/background.png") !important;
+
+  background-size: cover !important;
+  background-position: center center !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
+}
+
+
+/* ========================================
+   暗色背景
+   ======================================== */
+
+html[data-theme="dark"] body {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 35%,
+      rgba(0, 0, 0, 0.35) 55%,
+      rgba(0, 0, 0, 0.7) 75%,
+      rgba(0, 0, 0, 0.7) 100%
+    ),
+    url("/images/background-dark.png") !important;
+
+  background-size: cover !important;
+  background-position: center center !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
+}
