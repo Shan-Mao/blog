@@ -123,14 +123,14 @@
             "id": "0f4917978aae42b1",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": ".obsidian/workspace.json",
-                "bFile": ".obsidian/workspace.json",
-                "aRef": ""
+                "file": "content/posts/这是一个新的测试文件.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: workspace.json  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "这是一个新的测试文件"
             }
           }
         ],
@@ -207,6 +207,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "content/posts/这是一个新的测试文件.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -216,7 +217,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "反向链接"
+              "title": "这是一个新的测试文件 的反向链接列表"
             }
           },
           {
@@ -225,11 +226,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "content/posts/这是一个新的测试文件.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "出链"
+              "title": "这是一个新的测试文件 的出链列表"
             }
           },
           {
@@ -267,12 +269,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "content/posts/这是一个新的测试文件.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "这是一个新的测试文件 的大纲"
             }
           },
           {
