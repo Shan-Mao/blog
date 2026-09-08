@@ -216,98 +216,73 @@ html[data-theme="dark"] .single-post {
   border-color: currentColor !important;
 }
 
+
 /* ==================================================
    所有提示框统一样式
    Tip / Success / Warning / Error / Info
    ================================================== */
 
-
 /*--- 提示框整体 ---*/
-
 .alert {
   font-size: 1rem !important;
   line-height: 1.33 !important;
-
   /* 不给整体加 padding，防止上下背景之间出现白边 */
   padding: 0 !important;
-
   border-radius: 8px !important;
   overflow: hidden !important;
   box-sizing: border-box !important;
 }
 
-
 /*--- 顶部标题区域 ---*/
-
 .alert .alert-header {
   font-size: 1rem !important;
   line-height: 1.33 !important;
-
   /* 间距 = 当前文字高度约 33% */
   padding: 0.33em !important;
-
   /* 图标与标题之间 */
   gap: 0.33em !important;
-
   /* 去掉额外白色边框 */
   border: none !important;
-
   /* 去掉额外阴影 */
   box-shadow: none !important;
-
   /* 不指定 background，保留不同提示框自己的原始颜色 */
   box-sizing: border-box !important;
 }
 
-
 /*--- 图标 ---*/
-
 .alert .alert-icon {
   width: 1em !important;
   height: 1em !important;
-
   margin: 0 !important;
-
   flex-shrink: 0 !important;
 }
 
-
 /*--- 标题文字 ---*/
-
 .alert .alert-title {
   font-size: 1rem !important;
   line-height: 1.33 !important;
   margin: 0 !important;
 }
 
-
 /*--- 正文区域 ---*/
-
 .alert .alert-content {
   font-size: 1rem !important;
   line-height: 1.33 !important;
-
   /* 间距 = 当前文字高度约 33% */
   padding: 0.33em !important;
-
   margin: 0 !important;
   border: none !important;
   box-sizing: border-box !important;
 }
 
-
 /*--- 正文段落 ---*/
-
 .alert .alert-content p {
   font-size: 1rem !important;
   line-height: 1.33 !important;
-
   margin: 0 !important;
 }
 
-
 /*--- 列表 ---*/
-
 .alert .alert-content ul,
 .alert .alert-content ol {
   margin-top: 0.33em !important;
@@ -315,39 +290,32 @@ html[data-theme="dark"] .single-post {
   padding-left: 1.5em !important;
 }
 
-
 /*--- 图片 ---*/
-
 .alert .alert-content img {
   max-width: 100% !important;
   height: auto !important;
-
   display: block !important;
-
   margin-left: auto !important;
   margin-right: auto !important;
 }
 
-
 /*--- 链接 ---*/
-
 .alert .alert-content a {
   font-size: inherit !important;
 }
 
-
 /*--- 防止内部元素溢出 ---*/
-
 .alert *,
 .alert *::before,
 .alert *::after {
   box-sizing: border-box !important;
 }
 
-
 /* ==================================================
    所有提示框统一样式结束
    ================================================== */
+
+   
 /* ==================================================
    Alert 标题栏：图标与文字垂直居中
    ================================================== */
