@@ -10,9 +10,16 @@
 		
 		
 		
-			<lastBuildDate>Mon, 07 Sep 2026 00:00:00 +0000</lastBuildDate>
+			<lastBuildDate>Tue, 08 Sep 2026 15:52:31 +0800</lastBuildDate>
 		
 			<atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>教程</title>
+				<link>http://localhost:1313/tags/%E6%95%99%E7%A8%8B/</link>
+				<pubDate>Tue, 08 Sep 2026 15:52:31 +0800</pubDate>
+				<guid>http://localhost:1313/tags/%E6%95%99%E7%A8%8B/</guid>
+				<description></description>
+			</item>
 			<item>
 				<title>随笔</title>
 				<link>http://localhost:1313/tags/%E9%9A%8F%E7%AC%94/</link>

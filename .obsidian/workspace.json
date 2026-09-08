@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "0基础通过与AI对话完成对AI下达指令利用R语言的完成工作"
             }
+          },
+          {
+            "id": "b79a9033d413050a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/posts/hello-world.md",
+                "mode": "source",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "hello-world"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -196,26 +211,27 @@
       "cmdr:Git: Commit-and-sync": false
     }
   },
-  "active": "0f4917978aae42b1",
+  "active": "b79a9033d413050a",
   "lastOpenFiles": [
+    "content/posts/安装R语言.md",
+    "content/posts/0基础通过与AI对话完成对AI下达指令利用R语言的完成工作.md",
+    "_templates/文章.md",
+    "content/posts/hello-world.md",
+    "content/posts/这是一个生成标签的文件.md",
+    "public/posts/这是一个生成标签的文件/index.html",
+    "public/posts/这是一个生成标签的文件",
+    "public/tags/教程/index.xml",
+    "public/tags/教程/index.html",
+    "public/tags/教程",
     "static/images/posts/Pasted image 20260907170507.png",
     "public/posts/安装r语言/index.html",
     "public/posts/安装r语言",
-    "content/posts/安装R语言.md",
     "public/js/obsidian-block-links.js",
     "static/js/obsidian-block-links.js",
     "static/js",
-    "layouts/_default/_markup/render-link.html",
-    "layouts/_default/_markup",
-    "content/posts/0基础通过与AI对话完成对AI下达指令利用R语言的完成工作.md",
-    "public/posts/0基础通过与ai对话完成对ai下达指令利用r语言的完成工作/index.html",
-    "public/posts/0基础通过与ai对话完成对ai下达指令利用r语言的完成工作",
     "public/images/posts/Pasted image 20260907183711.png",
     "public/images/posts/Pasted image 20260907183546.png",
     "public/images/posts/Pasted image 20260907170507.png",
-    "public/images/posts",
-    "_templates/文章.md",
-    "content/posts/hello-world.md",
     "content/about.md",
     "static/images/posts/Pasted image 20260907183711.png",
     "static/images/posts/Pasted image 20260907183546.png",
