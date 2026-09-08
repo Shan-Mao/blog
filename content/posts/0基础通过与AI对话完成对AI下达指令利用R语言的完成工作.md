@@ -1,8 +1,4 @@
->https://chatgpt.com/share/6a9e3f59-9030-83ee-9fe0-b54249bc3166
->https://chatgpt.com/share/6a9e3f59-9030-83ee-9fe0-b54249bc3166
->对话原文
-
-你真的需要这个
+# 你真的需要这个
 
 ok我们先明确一个需求。就是不会R语言才用AI辅助的，那么就不要深究为什么要这样做。专业术语我也完全不懂。就是从0，从我的视角来回顾这个过程。
 
@@ -19,7 +15,10 @@ base
         ↓
 Download R-x.x.x for Windows
 ```
-安装还需要讲解吗？好吧我自己需要的 [[安装R语言]]
+安装还需要讲解吗？好吧我自己需要的 
+
+[[安装R语言]]
+
 ### 2、R的配置
 <font color="#e36c09">为了让其他工具能够识别到R的存在，需要对R进行环境变量配置。</font>
 1、首先你需要打开环境变量的窗口：WIN+S <font color="#a5a5a5">(右键WIN-搜索)</font> - 编辑系统环境变量 -环境变量
@@ -94,12 +93,14 @@ print(mean(x))
 print(summary(x))
 ~~~
 把它保存到：
-^a4e2d5
+
+<a name="a4e2d5"></a>
+
 ```
 %\AI-R\test.R
 ```
 <font color="#c0504d">如果 `AI-R` 文件夹还没有，就自己创建。</font>创建在你想放在的位置
-然后 CMD：%就是你放文件夹的位置
+然后 CMD：% 就是你放文件夹的位置
 ~~~cmd
 cd /d %\AI-R
 ~~~
@@ -116,7 +117,9 @@ Rscript test.R
 ~~~
 
 ## 二、关于“手”
-这个手使用的是<font color="#31859b">python</font>。如果你电脑里有python，那么直接看 [[#^4044f1|3、给手一个能用的工具]]
+这个手使用的是<font color="#31859b">python</font>。如果你电脑里有python，那么直接看 
+[[#^4044f1|3、给手一个能用的工具]]
+
 ### 1、安装python
 
 虽然我很想写这个教程，但是我自己按安装python的时候也是找的各种各样的视频，不过大体上就是下载安装包，然后安装。这个的教程非常多。
@@ -134,9 +137,12 @@ pip --version
 py --version
 ~~~
 
-### 3、给手一个能用的工具
 ^4044f1
-(<font color="#ff0000">以下的C:\E\AI-R 为我的文件夹位置，你需要改为你自己的</font>)[[#^a4e2d5|在这里看]]
+
+### 3、给手一个能用的工具
+
+(<font color="#ff0000">以下的C:\E\AI-R 为我的文件夹位置，你需要改为你自己的</font>) 
+[在这里看](#a4e2d5)
 #### (1) 创建 Runner
 在 CMD 输入：
 ~~~cmd
@@ -177,7 +183,6 @@ if result.returncode != 0:
 ~~~
 保存并关闭记事本。
 
----
 #### (2) 让 Python 调用你刚才的 R
 
 你已经有：
@@ -258,13 +263,14 @@ vscode： [官方链接：Visual Studio Code - The open source AI code editor | 
 ccswitch：[官方链接：CC Switch 官方网站 - AI 编程工具统一管理平台](https://www.ccswitch.io/zh/)
 
 2、在vscode中安装claude code插件
-名称: Claude Code for VS Code
-ID: Anthropic.claude-code
-说明: Claude Code for VS Code: Harness the power of Claude Code without leaving your IDE
-发布者: Anthropic
+
+名称: Claude Code for VS Code<br>
+ID: Anthropic.claude-code<br>
+说明: Claude Code for VS Code: Harness the power of Claude Code without leaving your IDE<br>
+发布者: Anthropic<br>
 VS Marketplace 插件地址： [Claude code插件](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code) 
 
-![](/images/posts/Pasted image 20260907170507.png)
+![](/images/posts/Pasted%20image%2020260907170507.png)
 
 3、ccswitch 按其他教程接入deepseek后先尝试 插件是否能够识别到api，一般来说到现在是可以使用的。
 如果依然没有成功识别可以在<font color="#ff0000">Claudecode插件的设置</font>里 添加
@@ -298,7 +304,7 @@ R | 底层
 ```
 
 ### 如何构建
-(<font color="#ff0000">以下的C:\E\AI-R 为我的文件夹位置，你需要改为你自己的</font>)[[#^a4e2d5|在这里看]]
+(<font color="#ff0000">以下的C:\E\AI-R 为我的文件夹位置，你需要改为你自己的</font>)[在这里看](#a4e2d5)
 #### 第 1 步：进入你的项目
 打开 **CMD**：
 ~~~cmd
@@ -334,7 +340,9 @@ r_runner.py
 就说明成功。
 
 <font color="#ff0000">如果你还没有 .venv</font>，执行：
+
 ^ece8f2
+
 ~~~cmd
 python -m venv .venv
 ~~~
@@ -472,7 +480,7 @@ MCP:添加服务器...
 ```
 Command|命令 (stdio)
 ```
-输入 (<font color="#ff0000">以下的C:\E\AI-R 为我的文件夹位置，你需要改为你自己的</font>)[[#^a4e2d5|在这里看]]
+输入 (<font color="#ff0000">以下的C:\E\AI-R 为我的文件夹位置，你需要改为你自己的</font>)[在这里看](#a4e2d5)
 ```
 C:\E\AI-R\.venv\Scripts\python.exe C:\E\AI-R\mcp_server.py
 ```
@@ -504,13 +512,15 @@ AI-R
 ~~~
 
 #### 第 7 步：将claude code 插件与MCP连接
-![[Pasted image 20260907183546.png]]
+
+![](/images/posts/Pasted%20image%2020260907183546.png)
+
 在对话框下方在选择【/】，输入mcp
 选择
 ```
 MCP serves
 ```
-![[Pasted image 20260907183711.png]]
+![](/images/posts/Pasted%20image%2020260907183711.png)
 选择 
 ```
 Add server

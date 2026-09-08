@@ -28,6 +28,25 @@
     {{ partial "buy-me-coffee.html" . }}
     {{ partial "scroll-to-top.html" . }}
 
-    {{ partial "head/js.html" . }}
+
+    
+{{ partial "head/js.html" . }}
+
+<script type="application/json" id="hugo-pages">
+[
+  {{ range $i, $page := site.RegularPages }}
+    {{ if $i }},{{ end }}
+    {
+      "title": {{ $page.Title | jsonify }},
+      "url": {{ $page.RelPermalink | jsonify }},
+      "slug": {{ $page.Slug | jsonify }},
+      "fileName": {{ $page.File.ContentBaseName | jsonify }},
+      "name": {{ $page.File.BaseFileName | jsonify }}
+    }
+  {{ end }}
+]
+</script>
+
+<script src="/js/obsidian-block-links.js"></script>
   </body>
 </html>

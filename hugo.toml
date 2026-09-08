@@ -55,6 +55,11 @@ theme = 'mana'
 
 # 文章目录
 [markup]
+
+  # 允许 Markdown 中使用 HTML
+  [markup.goldmark.renderer]
+    unsafe = true
+    
   [markup.tableOfContents]
     startLevel = 1
     endLevel = 6
