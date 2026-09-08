@@ -346,8 +346,7 @@ html[data-theme="dark"] .single-post {
   height: 1.25em !important;
 
   /* 覆盖 HTML 内联样式 */
-  vertical-align: middle !important;
-
+ 
   margin: 0 !important;
 
   display: block !important;
