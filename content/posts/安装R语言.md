@@ -1,8 +1,10 @@
 ---
-title: "安装R语言"
+title: 安装R语言
 date: 2026-09-08
 tags:
   - 教程
+categories:
+  - R语言
 ---
 
 不要从乱七八糟的网站下载。

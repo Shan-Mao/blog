@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/hello-world.md",
+                "file": "content/posts/安装R语言.md",
                 "mode": "source",
-                "source": true
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "hello-world"
+              "title": "安装R语言"
             }
           }
         ],
@@ -213,10 +213,10 @@
   },
   "active": "b79a9033d413050a",
   "lastOpenFiles": [
-    "content/posts/安装R语言.md",
     "content/posts/0基础通过与AI对话完成对AI下达指令利用R语言的完成工作.md",
-    "_templates/文章.md",
+    "content/posts/安装R语言.md",
     "content/posts/hello-world.md",
+    "_templates/文章.md",
     "content/posts/这是一个生成标签的文件.md",
     "public/posts/这是一个生成标签的文件/index.html",
     "public/posts/这是一个生成标签的文件",

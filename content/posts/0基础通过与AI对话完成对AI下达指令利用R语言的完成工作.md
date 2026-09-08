@@ -3,6 +3,8 @@ title: "0基础通过与AI对话完成对AI下达指令利用R语言的完成工
 date: 2026-09-08
 tags:
   - 教程
+categories:
+  - R语言
 ---
 
 
