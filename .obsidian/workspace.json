@@ -11,12 +11,14 @@
             "id": "0f4917978aae42b1",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "static/images/posts/Pasted image 20260907170507.png"
+                "file": "content/posts/0基础通过与AI对话完成对AI下达指令利用R语言的完成工作.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "Pasted image 20260907170507"
+              "icon": "lucide-file",
+              "title": "0基础通过与AI对话完成对AI下达指令利用R语言的完成工作"
             }
           }
         ]
@@ -196,6 +198,7 @@
   },
   "active": "0f4917978aae42b1",
   "lastOpenFiles": [
+    "static/images/posts/Pasted image 20260907170507.png",
     "public/posts/安装r语言/index.html",
     "public/posts/安装r语言",
     "content/posts/安装R语言.md",
@@ -216,8 +219,6 @@
     "content/about.md",
     "static/images/posts/Pasted image 20260907183711.png",
     "static/images/posts/Pasted image 20260907183546.png",
-    "static/images/posts/Pasted image 20260907170507.png",
-    "static/images/posts",
     "public/images/background-dark.png",
     "static/images/background-dark.png",
     "public/images/QQ20250506-220930.png",
