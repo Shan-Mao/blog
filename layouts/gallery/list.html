@@ -1,7 +1,9 @@
 {{ define "main" }}
   {{/* 分类固定这三项；数据里出现别的值一律归入「其他」 */}}
   {{ $categories := slice "Minecraft" "绘画" "其他" }}
-  {{ $items := hugo.Data.gallery }}
+  {{/* 用 site.Data 而不是 hugo.Data：hugo.Data 需要较新的 Hugo，
+       Cloudflare Pages 上的 v0.147.7 不支持，会让整站构建失败 */}}
+  {{ $items := site.Data.gallery }}
 
   <div class="gallery-container">
     <header class="list-header">
