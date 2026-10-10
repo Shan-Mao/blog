@@ -1,0 +1,44 @@
+# ============================================================
+#  画廊数据
+# ------------------------------------------------------------
+#  新增一张图片 =
+#      1. 把图片文件放进 static/gallery/
+#      2. 在下面加一条记录
+#  不需要改任何模板。
+#
+#  字段说明：
+#    src          必填。本地图片写 /gallery/文件名（以 / 开头）；
+#                 外部图床写完整 URL（以 http:// 或 https:// 开头）
+#    title        可选。图片标题
+#    description  可选。图片描述
+#    date         可选。日期，格式 YYYY-MM-DD，建议加引号
+#    category     可选。只能是 Minecraft / 绘画 / 其他。
+#                 留空或写其他值都会自动归入「其他」
+#    width/height 可选。原图宽高（像素），两个一起填。
+#                 填了可以在图片加载前预留位置，避免瀑布流跳动，
+#                 外部图片建议填上。
+#
+#  注意：列表项前必须有 "- "，字段缩进两格，不要用 Tab。
+# ============================================================
+
+# 示例 —— 删掉下面每一行前面的 "#" 即可生效：
+
+# - src: /gallery/minecraft-castle.png
+#   title: 石砖城堡
+#   description: 在生存服里盖了三个晚上
+#   date: '2026-01-14'
+#   category: Minecraft
+#
+# - src: https://i.example.com/drawing-01.png
+#   title: 临摹练习
+#   description: 参考了某位画师的光影处理
+#   date: '2026-02-03'
+#   category: 绘画
+#   width: 1200
+#   height: 1600
+
+- src: https://img.shanmao.icu/mc/PixPin_2026-10-08_00-05-04.png
+  title: 蝙蝠
+  description: Minecraft 截图
+  date: '2026-10-08'
+  category: Minecraft
