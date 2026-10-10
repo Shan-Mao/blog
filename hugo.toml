@@ -45,6 +45,11 @@ theme = 'mana'
   weight = 30
 
 [[menus.main]]
+  name = '画廊'
+  pageRef = '/gallery'
+  weight = 35
+
+[[menus.main]]
   name = '关于'
   pageRef = '/about'
   weight = 40

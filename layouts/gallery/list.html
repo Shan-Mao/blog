@@ -1,0 +1,112 @@
+{{ define "main" }}
+  {{/* 分类固定这三项；数据里出现别的值一律归入「其他」 */}}
+  {{ $categories := slice "Minecraft" "绘画" "其他" }}
+  {{ $items := hugo.Data.gallery }}
+
+  <div class="gallery-container">
+    <header class="list-header">
+      <h1 class="list-title">
+        <span class="list-title-line2">{{ .Title | upper }}</span>
+      </h1>
+      {{ with .Description }}
+        <p class="list-description">{{ . }}</p>
+      {{ end }}
+      {{ with $items }}
+        <p class="list-count">共 {{ len . }} 张图片</p>
+      {{ end }}
+    </header>
+
+    {{ if $items }}
+      <div class="gallery-filter" role="group" aria-label="分类筛选">
+        <button
+          type="button"
+          class="gallery-filter-btn is-active"
+          data-filter="all"
+          aria-pressed="true">
+          全部
+        </button>
+        {{ range $categories }}
+          <button type="button" class="gallery-filter-btn" data-filter="{{ . }}" aria-pressed="false">
+            {{ . }}
+          </button>
+        {{ end }}
+      </div>
+
+      <div class="gallery-grid" id="gallery-grid">
+        {{ range $items }}
+          {{ $src := .src }}
+          {{ $isExternal := strings.HasPrefix $src "http" }}
+          {{ $category := .category | default "其他" }}
+          {{ if not (in $categories $category) }}
+            {{ $category = "其他" }}
+          {{ end }}
+
+          {{ $date := "" }}
+          {{ with .date }}
+            {{ $date = . | time.AsTime | time.Format "2006-01-02" }}
+          {{ end }}
+
+          <figure
+            class="gallery-item"
+            data-category="{{ $category }}"
+            data-title="{{ .title }}"
+            data-description="{{ .description }}"
+            data-date="{{ $date }}">
+            <button
+              type="button"
+              class="gallery-item-trigger"
+              aria-label="查看大图：{{ .title | default "画廊图片" }}">
+              <img
+                src="{{ if $isExternal }}{{ $src }}{{ else }}{{ $src | relURL }}{{ end }}"
+                alt="{{ .title | default .description | default "画廊图片" }}"
+                loading="lazy"
+                decoding="async"
+                referrerpolicy="no-referrer"
+                {{ if and .width .height }}style="aspect-ratio: {{ .width }} / {{ .height }}"{{ end }}>
+            </button>
+
+            {{ if or .title .date }}
+              <figcaption class="gallery-caption">
+                {{ with .title }}<span class="gallery-caption-title">{{ . }}</span>{{ end }}
+                {{ with $date }}<time class="gallery-caption-date" datetime="{{ . }}">{{ . }}</time>{{ end }}
+              </figcaption>
+            {{ end }}
+          </figure>
+        {{ end }}
+      </div>
+    {{ else }}
+      <p class="gallery-empty">
+        画廊里还没有图片。<br>
+        把图片放进 <code>static/gallery/</code>，再到 <code>data/gallery.yaml</code> 添加一条记录即可。
+      </p>
+    {{ end }}
+  </div>
+
+  {{/* 大图查看器：使用原生 dialog，Esc 关闭与焦点锁定由浏览器提供 */}}
+  <dialog id="gallery-lightbox" class="gallery-lightbox" aria-label="图片查看器">
+    <div class="gallery-lightbox-inner">
+      <button type="button" class="gallery-lightbox-close" data-lb-close aria-label="关闭">
+        &times;
+      </button>
+
+      <button type="button" class="gallery-lightbox-nav gallery-lightbox-prev" data-lb-prev aria-label="上一张">
+        &lsaquo;
+      </button>
+
+      <img class="gallery-lightbox-image" data-lb-image alt="">
+
+      <button type="button" class="gallery-lightbox-nav gallery-lightbox-next" data-lb-next aria-label="下一张">
+        &rsaquo;
+      </button>
+
+      <div class="gallery-lightbox-info">
+        <h2 class="gallery-lightbox-title" data-lb-title></h2>
+        <p class="gallery-lightbox-desc" data-lb-desc></p>
+        <p class="gallery-lightbox-meta">
+          <span data-lb-date></span>
+          <span data-lb-counter></span>
+        </p>
+      </div>
+    </div>
+  </dialog>
+{{ end }}

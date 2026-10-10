@@ -1,0 +1,296 @@
+/* ==========================================================
+   画廊 Gallery
+   仅用于 /gallery/ 页面（由 baseof.html 条件加载）
+   颜色全部取自 mana 主题变量，自动跟随亮/暗模式
+   ========================================================== */
+
+.gallery-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  background-color: var(--bg-secondary);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+}
+
+/* ---------- 分类筛选 ---------- */
+
+.gallery-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
+}
+
+.gallery-filter-btn {
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  padding: 0.35em 1.1em;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.gallery-filter-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.gallery-filter-btn.is-active {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #fff;
+}
+
+/* ---------- 瀑布流（CSS 多列，图片保持原始比例） ---------- */
+
+.gallery-grid {
+  column-width: 280px;
+  column-gap: var(--spacing-md);
+}
+
+.gallery-item {
+  /* 防止单张图片被拆分到两列 */
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+
+  margin: 0 0 var(--spacing-md) 0;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: var(--bg-tertiary);
+  transition: border-color var(--transition-base);
+}
+
+.gallery-item:hover {
+  border-color: var(--accent-primary);
+}
+
+/* 用类而不是 [hidden] 属性做筛选隐藏，
+   因为上面的 display 规则会盖掉浏览器默认的 [hidden] { display:none } */
+.gallery-item.is-hidden {
+  display: none;
+}
+
+.gallery-item-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: zoom-in;
+  font: inherit;
+}
+
+.gallery-item-trigger:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: -2px;
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.gallery-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.gallery-caption-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.gallery-caption-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ---------- 空状态 ---------- */
+
+.gallery-empty {
+  color: var(--text-secondary);
+  line-height: 1.9;
+}
+
+.gallery-empty code {
+  padding: 0.1em 0.45em;
+  border-radius: 4px;
+  background-color: var(--tag-bg);
+  color: var(--tag-color);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* ---------- 大图查看器 ---------- */
+
+.gallery-lightbox {
+  padding: 0;
+  border: none;
+  background: transparent;
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: visible;
+  color: #fff;
+}
+
+.gallery-lightbox::backdrop {
+  /* ::backdrop 不继承自定义属性，这里直接写死，
+     与 search-modal 的遮罩保持一致 */
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.gallery-lightbox-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  max-width: 92vw;
+  max-height: 92vh;
+}
+
+.gallery-lightbox-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 92vw;
+  max-height: 74vh;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+
+/* ---------- 按钮 ---------- */
+
+.gallery-lightbox-close,
+.gallery-lightbox-nav {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background-color: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-family: inherit;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.gallery-lightbox-close:hover,
+.gallery-lightbox-nav:hover {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.gallery-lightbox-close:focus-visible,
+.gallery-lightbox-nav:focus-visible {
+  outline: 2px solid var(--accent-light-purple);
+  outline-offset: 2px;
+}
+
+.gallery-lightbox-close {
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  font-size: 1.4rem;
+}
+
+.gallery-lightbox-nav {
+  top: 37%;
+  font-size: 2rem;
+  padding-bottom: 0.25em;
+}
+
+.gallery-lightbox-prev {
+  left: var(--spacing-sm);
+}
+
+.gallery-lightbox-next {
+  right: var(--spacing-sm);
+}
+
+/* ---------- 说明文字 ---------- */
+
+.gallery-lightbox-info {
+  width: 100%;
+  max-width: 92vw;
+  text-align: center;
+}
+
+.gallery-lightbox-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.gallery-lightbox-desc {
+  margin: 0.25em 0 0 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.gallery-lightbox-meta {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin: 0.4em 0 0 0;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* 空内容不占位 */
+.gallery-lightbox-title:empty,
+.gallery-lightbox-desc:empty,
+.gallery-lightbox-meta span:empty {
+  display: none;
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 768px) {
+  .gallery-container {
+    padding: var(--spacing-md);
+  }
+
+  .gallery-grid {
+    column-width: 220px;
+  }
+
+  .gallery-lightbox-close,
+  .gallery-lightbox-nav {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .gallery-lightbox-nav {
+    font-size: 1.6rem;
+  }
+
+  .gallery-lightbox-image {
+    max-height: 68vh;
+  }
+}

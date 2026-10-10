@@ -3,6 +3,9 @@
   <head>
     {{ partial "head.html" . }}
     <link rel="stylesheet" href="/css/custom.css">
+    {{ if eq .Type "gallery" }}
+      <link rel="stylesheet" href="/css/gallery.css">
+    {{ end }}
   </head>
   <body class="flex flex-col min-h-screen{{ if eq site.Language.LanguageDirection "rtl" }} rtl{{ end }}">
     <a href="#main-content" class="skip-to-main" aria-label="{{ i18n "skipToMain" }}"
@@ -48,5 +51,9 @@
 </script>
 
 <script src="/js/obsidian-block-links.js"></script>
+
+{{ if eq .Type "gallery" }}
+<script src="/js/gallery.js" defer></script>
+{{ end }}
   </body>
 </html>
