@@ -6,7 +6,8 @@
   <div class="gallery-container">
     <header class="list-header">
       <h1 class="list-title">
-        <span class="list-title-line2">{{ .Title | upper }}</span>
+        {{/* 与其他列表页一致，标题用英文大写；_index.md 的中文 title 仍用于标签页与导航 */}}
+        <span class="list-title-line2">GALLERY</span>
       </h1>
       {{ with .Description }}
         <p class="list-description">{{ . }}</p>

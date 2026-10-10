@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-cn" class="h-full">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1314&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -34,10 +34,10 @@
 
 
 
-<link rel="canonical" href="http://localhost:1314/gallery/">
+<link rel="canonical" href="http://localhost:1313/gallery/">
 
 
-<link rel="alternate" hreflang="zh-cn" href="http://localhost:1314/gallery/"><link rel="alternate" hreflang="x-default" href="http://localhost:1314/gallery/">
+<link rel="alternate" hreflang="zh-cn" href="http://localhost:1313/gallery/"><link rel="alternate" hreflang="x-default" href="http://localhost:1313/gallery/">
 
 
 <meta name="robots" content="index, follow">
@@ -46,7 +46,7 @@
 <meta property="og:locale" content="zh_cn">
 <meta property="og:title" content="画廊 | 山猫的博客">
 <meta property="og:description" content="Minecraft 建筑、绘画练习，以及各种随手记录">
-<meta property="og:url" content="http://localhost:1314/gallery/">
+<meta property="og:url" content="http://localhost:1313/gallery/">
 <meta property="og:site_name" content="山猫的博客">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="画廊 | 山猫的博客">
@@ -147,7 +147,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 
-  <link rel="alternate" type="application/rss&#43;xml" href="http://localhost:1314/gallery/index.xml">
+  <link rel="alternate" type="application/rss&#43;xml" href="http://localhost:1313/gallery/index.xml">
 
 
 
@@ -290,19 +290,81 @@
   <div class="gallery-container">
     <header class="list-header">
       <h1 class="list-title">
-        <span class="list-title-line2">画廊</span>
+        
+        <span class="list-title-line2">GALLERY</span>
       </h1>
       
         <p class="list-description">Minecraft 建筑、绘画练习，以及各种随手记录</p>
       
       
+        <p class="list-count">共 1 张图片</p>
+      
     </header>
 
     
-      <p class="gallery-empty">
-        画廊里还没有图片。<br>
-        把图片放进 <code>static/gallery/</code>，再到 <code>data/gallery.yaml</code> 添加一条记录即可。
-      </p>
+      <div class="gallery-filter" role="group" aria-label="分类筛选">
+        <button
+          type="button"
+          class="gallery-filter-btn is-active"
+          data-filter="all"
+          aria-pressed="true">
+          全部
+        </button>
+        
+          <button type="button" class="gallery-filter-btn" data-filter="Minecraft" aria-pressed="false">
+            Minecraft
+          </button>
+        
+          <button type="button" class="gallery-filter-btn" data-filter="绘画" aria-pressed="false">
+            绘画
+          </button>
+        
+          <button type="button" class="gallery-filter-btn" data-filter="其他" aria-pressed="false">
+            其他
+          </button>
+        
+      </div>
+
+      <div class="gallery-grid" id="gallery-grid">
+        
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          <figure
+            class="gallery-item"
+            data-category="Minecraft"
+            data-title="蝙蝠"
+            data-description="Minecraft 截图"
+            data-date="2026-10-08">
+            <button
+              type="button"
+              class="gallery-item-trigger"
+              aria-label="查看大图：蝙蝠">
+              <img
+                src="https://img.shanmao.icu/mc/PixPin_2026-10-08_00-05-04.png"
+                alt="蝙蝠"
+                loading="lazy"
+                decoding="async"
+                referrerpolicy="no-referrer"
+                >
+            </button>
+
+            
+              <figcaption class="gallery-caption">
+                <span class="gallery-caption-title">蝙蝠</span>
+                <time class="gallery-caption-date" datetime="2026-10-08">2026-10-08</time>
+              </figcaption>
+            
+          </figure>
+        
+      </div>
     
   </div>
 
