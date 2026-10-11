@@ -58,18 +58,26 @@ links:
     avatar: https://bu.dusays.com/2025/10/09/68e798c0a1dc6.jpg
     desc: 喜欢技术，喜欢你
 
-  # 博客园没有对外给出简介，这条先不写 desc，页面上只显示名字
   - name: H_Elden
     url: https://www.cnblogs.com/h-elden
     avatar: https://pic.cnblogs.com/avatar/3633603/20251126185516.png
 
   - name: 洛初 的 档案馆
     url: https://blog.luochu.cc/
-    # 地址里带 & ，加引号免得 YAML 解析出错
     avatar: "https://weavatar.com/avatar/4857f63b6e75c96621f24af9b451144731f670b55996cc8f28ac130e1a32332d?s=160&d=mm&r=g"
     desc: 记录折腾过的各种东西
 
   - name: Lucas的小博客
     url: https://blog.lris625.top/
     avatar: https://pic1.imgdb.cn/item/68fe309a3203f7be00a0c198.png
-    desc: 记录 Linux、Docker、Java、前端开发与服务器部署等技术学习笔记
+    desc: 欲买桂花同载酒，终不似，少年游
+
+  - name: Linlinli's Blog
+    url: https://blog.linlinli.top/
+    avatar: https://blog.linlinli.top/favicon/favicon.svg
+    desc: 林林梨的个人博客，分享技术与生活
+
+  - name: LC的网站
+    url: https://lcwebsite.cn/
+    avatar: https://lcwebsite.cn/favicon.svg
+    desc: To find myself, to be myself.
