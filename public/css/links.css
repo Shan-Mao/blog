@@ -4,6 +4,11 @@
    颜色全部取自 mana 主题变量，自动跟随亮/暗模式
    ========================================================== */
 
+.links-page {
+  /* 宽屏时给左边的漂浮块留出位置，.links-container 再在剩下的空间里居中 */
+  padding: 0;
+}
+
 .links-container {
   max-width: 960px;
   margin: 0 auto;
@@ -50,31 +55,121 @@
   color: var(--text-muted);
 }
 
-/* ---------- 本站信息 ---------- */
+/* ==========================================================
+   左侧漂浮块（本站信息 + 申请说明）
+   用原生 <details> 收纳：合上时只剩头像 +「申请友链」，展开内容在 .links-float-body 里
+   ========================================================== */
 
-.links-site {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-lg);
+.links-float {
+  /* 这里默认是「宽屏左栏」形态，窄屏在文件末尾的媒体查询里改成底部胶囊 */
+  position: fixed;
+  z-index: 40;
+  top: 50%;
+  /* 贴住正文栏的左边缘，而不是死盯视口左边：
+     main 是 max-width:1200px 居中的，超宽屏上写死 left:24px 会让块和正文离得老远。
+     max() 兜住窄屏，避免算式变成负数把块推出屏幕。
+     600 = main 最大宽度的一半，--spacing-lg 是 main 自己的左右内边距 */
+  left: max(24px, calc(50vw - 600px + var(--spacing-lg)));
+  transform: translateY(-50%);
+  /* 再窄方框里的长网址会折成两三行，340 是个平衡点 */
+  width: 340px;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  background-color: var(--bg-secondary);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
 }
 
-.links-site-avatar {
+.links-float-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 10px 14px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* 去掉 <summary> 自带的三角，自己画一个能跟着开合转的箭头 */
+.links-float-summary::-webkit-details-marker {
+  display: none;
+}
+
+.links-float-summary:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: -2px;
+}
+
+.links-float-avatar {
   flex-shrink: 0;
-  width: 96px;
-  height: 96px;
-  /* 用的是贴纸风格的方形头像，圆角方块比裁成圆形更好看 */
-  border-radius: 16px;
+  width: 32px;
+  height: 32px;
+  /* 和友链卡片一致用圆角方块，别用正圆 */
+  border-radius: 10px;
   border: 1px solid var(--border-color);
   background-color: var(--bg-tertiary);
+  object-fit: cover;
+}
+
+.links-float-label {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.links-float-chevron {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--text-muted);
+  transition: transform var(--transition-base);
+}
+
+.links-float[open] .links-float-chevron {
+  transform: rotate(180deg);
+}
+
+.links-float-body {
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+  /* 内容比视口高时在块内部滚动，漂浮块本身不跟着长 */
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* 漂浮块里空间窄，比正文页的排版收一档 */
+.links-float-body .links-section-title {
+  font-size: 1rem;
+}
+
+.links-float-body .links-section + .links-section {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+}
+
+.links-float-body .links-section p {
+  font-size: 0.85rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.links-float-body .links-hint,
+.links-float-body .links-rules,
+.links-float-body .links-contact {
+  font-size: 0.8rem;
+}
+
+.links-float-body .links-rules {
+  margin-bottom: var(--spacing-sm);
+  padding-left: 1.1em;
+  line-height: 1.7;
 }
 
 /* ---------- 本站信息：整块可复制的方框 ---------- */
-
-/* 占满头像右边的剩余宽度；min-width 防止长网址把 flex 撑破 */
-.links-site .links-template {
-  flex: 1;
-  min-width: 0;
-}
 
 /* user-select: all 让单击整块选中，不用 JS 也能一次性复制四行 */
 .links-template {
@@ -93,6 +188,13 @@
   cursor: text;
   user-select: all;
   -webkit-user-select: all;
+}
+
+/* 漂浮块窄，方框里的等宽字再缩一档，长网址才不至于一行只放得下几个字 */
+.links-float-body .links-template {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.75rem;
+  line-height: 1.7;
 }
 
 /* ---------- 申请说明 ---------- */
@@ -207,20 +309,39 @@
 
 /* ---------- 响应式 ---------- */
 
+/* 宽屏：漂浮块待在左栏，正文往右让出位置，互相不压。
+   门槛取 1200（= main 的 max-width）：这之上正文还剩 764px，两列卡片放得下 */
+@media (min-width: 1200px) {
+  .links-page {
+    padding-left: 388px;
+  }
+}
+
+/* 窄屏放不下左栏：漂浮块改成左下角的胶囊，展开时向上铺开 */
+@media (max-width: 1199px) {
+  .links-float {
+    top: auto;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    transform: none;
+    width: auto;
+    max-width: 440px;
+  }
+
+  .links-float-body {
+    max-height: min(60vh, 480px);
+  }
+
+  /* 给胶囊让出一点底部空间，免得最后一行卡片被压住 */
+  .links-page {
+    padding-bottom: 72px;
+  }
+}
+
 @media (max-width: 768px) {
   .links-container {
     padding: var(--spacing-md);
-  }
-
-  /* 头像换到上面，信息方框占满整行，长网址才不会被挤成一条线 */
-  .links-site {
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-md);
-  }
-
-  .links-site .links-template {
-    width: 100%;
   }
 
   .links-grid {
@@ -237,5 +358,9 @@
 
   .links-item-link:hover {
     transform: none;
+  }
+
+  .links-float-chevron {
+    transition: none;
   }
 }

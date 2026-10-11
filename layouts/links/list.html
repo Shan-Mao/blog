@@ -19,117 +19,143 @@
   {{ end }}
   {{ $links := $data.links }}
 
-  <div class="links-container">
-    <header class="list-header">
-      <h1 class="list-title">
-        {{/* 与其他列表页一致，标题用英文大写；_index.md 的中文 title 仍用于标签页与导航 */}}
-        <span class="list-title-line2">LINKS</span>
-      </h1>
-      {{ with .Description }}
-        <p class="list-description">{{ . }}</p>
-      {{ end }}
-    </header>
 
-    {{ with .Content }}
-      <div class="links-intro">{{ . }}</div>
-    {{ end }}
+  {{/* ---------- 左侧漂浮块：本站信息 + 申请说明 ----------
+       「我自己的部分」全部收进这个块，友链列表才是页面主体。
+       用原生 <details> 做收纳，不依赖 JS，键盘也能开合；
+       收纳时只露出头像 +「申请友链」四个字。
 
+       ⚠ 它必须留在 .links-container 外面：容器带 backdrop-filter，
+         会变成 fixed 子元素的包含块，放进去就飘不起来了。 */}}
+  <details class="links-float">
+    <summary class="links-float-summary">
+      <img
+        class="links-float-avatar"
+        src="{{ if $avatarExternal }}{{ $siteAvatar }}{{ else }}{{ $siteAvatar | relURL }}{{ end }}"
+        alt=""
+        width="32"
+        height="32"
+        loading="lazy"
+        decoding="async">
 
-    {{/* ---------- 本站信息 ---------- */}}
-    <section class="links-section">
-      <h2 class="links-section-title">本站信息</h2>
-      <p class="links-hint">点一下下面的方框即可全部选中，直接复制就行。</p>
+      <span class="links-float-label">申请友链</span>
 
-      <div class="links-site">
-        <img
-          class="links-site-avatar"
-          src="{{ if $avatarExternal }}{{ $siteAvatar }}{{ else }}{{ $siteAvatar | relURL }}{{ end }}"
-          alt="{{ $siteName }} 的头像"
-          width="96"
-          height="96"
-          loading="lazy"
-          decoding="async">
+      <svg
+        class="links-float-chevron"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true">
+        <path d="m6 9 6 6 6-6"/>
+      </svg>
+    </summary>
 
-        {{/* 四行信息合成一整块，user-select: all 让单击就整块选中，一次复制走。
-             改内容只需要改 data/links.yaml，这里不用动。 */}}
+    <div class="links-float-body">
+      {{/* 本站信息：四行合成一整块，user-select: all 让单击就整块选中，一次复制走。
+           改内容只需要改 data/links.yaml，这里不用动。 */}}
+      <section class="links-section">
+        <h2 class="links-section-title">本站信息</h2>
+        <p class="links-hint">点一下方框即可全部选中，直接复制就行。</p>
+
         <pre class="links-template">网站名称：{{ $siteName }}
 网站地址：{{ $siteUrl }}
 头像地址：{{ $avatarUrl }}
 网站简介：{{ $siteDesc }}</pre>
-      </div>
-    </section>
+      </section>
 
+      <section class="links-section">
+        <h2 class="links-section-title">申请说明</h2>
+        <p>把上面方框里的内容复制发给我，再满足下面几条就行：</p>
 
-    {{/* ---------- 申请说明 ---------- */}}
-    <section class="links-section">
-      <h2 class="links-section-title">申请友链</h2>
-      <p>欢迎交换链接。把上面「本站信息」方框里的内容复制发给我，再满足下面几条就行：</p>
-
-      <ul class="links-rules">
-        <li>站点能正常访问，内容以原创为主</li>
-        <li>已经加上本站的链接</li>
-        <li>个人博客优先；先友后链、先链后友都可以</li>
-      </ul>
-
-      {{ with site.Params.social.email }}
-        <p class="links-contact">
-          邮箱：<a href="mailto:{{ . }}">{{ . }}</a>
-        </p>
-      {{ end }}
-
-      {{ with site.Params.social.github }}
-        <p class="links-contact">
-          GitHub：<a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ . }}</a>
-        </p>
-      {{ end }}
-    </section>
-
-
-    {{/* ---------- 友链列表 ---------- */}}
-    <section class="links-section">
-      <h2 class="links-section-title">友链</h2>
-
-      {{ if $links }}
-        <ul class="links-grid">
-          {{ range $links }}
-            {{ $name := .name }}
-            {{ $avatar := .avatar }}
-            {{ $desc := .desc }}
-            {{ with .url }}
-              <li class="links-item">
-                <a class="links-item-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">
-                  {{ if $avatar }}
-                    <img
-                      class="links-item-avatar"
-                      src="{{ $avatar }}"
-                      alt=""
-                      width="48"
-                      height="48"
-                      loading="lazy"
-                      decoding="async"
-                      referrerpolicy="no-referrer">
-                  {{ else }}
-                    {{/* 没给头像就用名称的第一个字顶上 */}}
-                    <span class="links-item-avatar links-item-avatar-fallback" aria-hidden="true">
-                      {{- with $name }}{{ printf "%.1s" . }}{{ end -}}
-                    </span>
-                  {{ end }}
-
-                  <span class="links-item-text">
-                    <span class="links-item-name">{{ $name }}</span>
-                    {{ with $desc }}<span class="links-item-desc">{{ . }}</span>{{ end }}
-                  </span>
-                </a>
-              </li>
-            {{ end }}
-          {{ end }}
+        <ul class="links-rules">
+          <li>站点能正常访问，内容以原创为主</li>
+          <li>已经加上本站的链接</li>
+          <li>个人博客优先；先友后链、先链后友都可以</li>
         </ul>
-      {{ else }}
-        <p class="links-empty">
-          这里还空着。<br>
-          欢迎来申请友链，成为第一个。
-        </p>
+
+        {{ with site.Params.social.email }}
+          <p class="links-contact">
+            邮箱：<a href="mailto:{{ . }}">{{ . }}</a>
+          </p>
+        {{ end }}
+
+        {{ with site.Params.social.github }}
+          <p class="links-contact">
+            GitHub：<a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ . }}</a>
+          </p>
+        {{ end }}
+      </section>
+    </div>
+  </details>
+
+
+  {{/* ---------- 主体：友链列表 ---------- */}}
+  <div class="links-page">
+    <div class="links-container">
+      <header class="list-header">
+        <h1 class="list-title">
+          {{/* 与其他列表页一致，标题用英文大写；_index.md 的中文 title 仍用于标签页与导航 */}}
+          <span class="list-title-line2">LINKS</span>
+        </h1>
+        {{ with .Description }}
+          <p class="list-description">{{ . }}</p>
+        {{ end }}
+      </header>
+
+      {{ with .Content }}
+        <div class="links-intro">{{ . }}</div>
       {{ end }}
-    </section>
+
+      <section class="links-section">
+        <h2 class="links-section-title">友链</h2>
+
+        {{ if $links }}
+          <ul class="links-grid">
+            {{ range $links }}
+              {{ $name := .name }}
+              {{ $avatar := .avatar }}
+              {{ $desc := .desc }}
+              {{ with .url }}
+                <li class="links-item">
+                  <a class="links-item-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">
+                    {{ if $avatar }}
+                      <img
+                        class="links-item-avatar"
+                        src="{{ $avatar }}"
+                        alt=""
+                        width="48"
+                        height="48"
+                        loading="lazy"
+                        decoding="async"
+                        referrerpolicy="no-referrer">
+                    {{ else }}
+                      {{/* 没给头像就用名称的第一个字顶上 */}}
+                      <span class="links-item-avatar links-item-avatar-fallback" aria-hidden="true">
+                        {{- with $name }}{{ printf "%.1s" . }}{{ end -}}
+                      </span>
+                    {{ end }}
+
+                    <span class="links-item-text">
+                      <span class="links-item-name">{{ $name }}</span>
+                      {{ with $desc }}<span class="links-item-desc">{{ . }}</span>{{ end }}
+                    </span>
+                  </a>
+                </li>
+              {{ end }}
+            {{ end }}
+          </ul>
+        {{ else }}
+          <p class="links-empty">
+            这里还空着。<br>
+            欢迎来申请友链，成为第一个。
+          </p>
+        {{ end }}
+      </section>
+    </div>
   </div>
 {{ end }}
