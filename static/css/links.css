@@ -68,73 +68,18 @@
   background-color: var(--bg-tertiary);
 }
 
-.links-fields {
-  /* dt / dd 靠 grid 排成两列，不需要额外包一层 div */
+/* ---------- 本站信息：整块可复制的方框 ---------- */
+
+/* 占满头像右边的剩余宽度；min-width 防止长网址把 flex 撑破 */
+.links-site .links-template {
   flex: 1;
   min-width: 0;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--spacing-sm) var(--spacing-md);
-  align-items: baseline;
-  margin: 0;
 }
 
-.links-fields dt {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  white-space: nowrap;
-}
-
-.links-fields dd {
-  margin: 0;
-  min-width: 0;
-  color: var(--text-primary);
-  line-height: 1.6;
-}
-
-/* ---------- 可复制的字段 ---------- */
-
-/* user-select: all 让单击整块选中，不用 JS 也能方便地复制 */
-.links-copy {
-  display: inline-block;
-  max-width: 100%;
-  padding: 0.15em 0.45em;
-  border-radius: 6px;
-  background-color: var(--tag-bg);
-  color: var(--tag-color);
-  cursor: text;
-  user-select: all;
-  -webkit-user-select: all;
-  overflow-wrap: anywhere;
-}
-
-.links-copy-url {
-  font-family: var(--font-mono);
-  font-size: 0.85em;
-}
-
-.links-visit {
-  margin-left: var(--spacing-sm);
-  font-size: 0.8rem;
-  color: var(--accent-primary);
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.links-visit:hover {
-  text-decoration: underline;
-}
-
-.links-visit:focus-visible {
-  outline: 2px solid var(--accent-primary);
-  outline-offset: 2px;
-}
-
-/* ---------- 申请说明 ---------- */
-
+/* user-select: all 让单击整块选中，不用 JS 也能一次性复制四行 */
 .links-template {
   display: block;
-  margin: 0 0 var(--spacing-md) 0;
+  margin: 0;
   padding: var(--spacing-md);
   border: 1px dashed var(--border-color);
   border-radius: 12px;
@@ -144,7 +89,13 @@
   font-size: 0.85rem;
   line-height: 1.8;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  cursor: text;
+  user-select: all;
+  -webkit-user-select: all;
 }
+
+/* ---------- 申请说明 ---------- */
 
 .links-rules {
   margin: 0 0 var(--spacing-md) 0;
@@ -261,21 +212,15 @@
     padding: var(--spacing-md);
   }
 
-  /* 头像换到上面，字段改为上下排列，长网址才不会被挤成一条线 */
+  /* 头像换到上面，信息方框占满整行，长网址才不会被挤成一条线 */
   .links-site {
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-md);
   }
 
-  .links-fields {
+  .links-site .links-template {
     width: 100%;
-    grid-template-columns: 1fr;
-    gap: 0.2em;
-  }
-
-  .links-fields dt {
-    margin-top: var(--spacing-sm);
   }
 
   .links-grid {

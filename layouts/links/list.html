@@ -38,7 +38,7 @@
     {{/* ---------- 本站信息 ---------- */}}
     <section class="links-section">
       <h2 class="links-section-title">本站信息</h2>
-      <p class="links-hint">点一下任意一行即可整行选中，直接复制就行。</p>
+      <p class="links-hint">点一下下面的方框即可全部选中，直接复制就行。</p>
 
       <div class="links-site">
         <img
@@ -50,37 +50,12 @@
           loading="lazy"
           decoding="async">
 
-        <dl class="links-fields">
-          <dt>名称</dt>
-          <dd><span class="links-copy">{{ $siteName }}</span></dd>
-
-          <dt>地址</dt>
-          <dd>
-            <span class="links-copy links-copy-url">{{ $siteUrl }}</span>
-            {{ with $siteUrl }}
-              <a
-                class="links-visit"
-                href="{{ . }}"
-                target="_blank"
-                rel="noopener noreferrer">打开</a>
-            {{ end }}
-          </dd>
-
-          <dt>头像</dt>
-          <dd>
-            <span class="links-copy links-copy-url">{{ $avatarUrl }}</span>
-            {{ with $avatarUrl }}
-              <a
-                class="links-visit"
-                href="{{ . }}"
-                target="_blank"
-                rel="noopener noreferrer">打开</a>
-            {{ end }}
-          </dd>
-
-          <dt>简介</dt>
-          <dd><span class="links-copy">{{ $siteDesc }}</span></dd>
-        </dl>
+        {{/* 四行信息合成一整块，user-select: all 让单击就整块选中，一次复制走。
+             改内容只需要改 data/links.yaml，这里不用动。 */}}
+        <pre class="links-template">网站名称：{{ $siteName }}
+网站地址：{{ $siteUrl }}
+头像地址：{{ $avatarUrl }}
+网站简介：{{ $siteDesc }}</pre>
       </div>
     </section>
 
@@ -88,12 +63,7 @@
     {{/* ---------- 申请说明 ---------- */}}
     <section class="links-section">
       <h2 class="links-section-title">申请友链</h2>
-      <p>欢迎交换链接。先把本站信息加到你的站点，再按下面的格式发给我就行：</p>
-
-      <pre class="links-copy links-template">网站名称：{{ $siteName }}
-网站地址：{{ $siteUrl }}
-头像地址：{{ $avatarUrl }}
-网站简介：{{ $siteDesc }}</pre>
+      <p>欢迎交换链接。把上面「本站信息」方框里的内容复制发给我，再满足下面几条就行：</p>
 
       <ul class="links-rules">
         <li>站点能正常访问，内容以原创为主</li>
@@ -101,9 +71,15 @@
         <li>个人博客优先；先友后链、先链后友都可以</li>
       </ul>
 
+      {{ with site.Params.social.email }}
+        <p class="links-contact">
+          邮箱：<a href="mailto:{{ . }}">{{ . }}</a>
+        </p>
+      {{ end }}
+
       {{ with site.Params.social.github }}
         <p class="links-contact">
-          联系方式：<a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ . }}</a>
+          GitHub：<a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ . }}</a>
         </p>
       {{ end }}
     </section>
