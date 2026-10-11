@@ -84,7 +84,7 @@ html[data-theme="light"] body {
       rgba(255, 255, 255, 0.20) 80%,
       rgba(255, 255, 255, 0.30) 100%
     ),
-    url("/images/background.png") !important;
+    url("/images/background.jpg") !important;
 
   background-size: cover !important;
   background-position: center center !important;
@@ -107,7 +107,7 @@ html[data-theme="dark"] body {
       rgba(0, 0, 0, 0.7) 75%,
       rgba(0, 0, 0, 0.7) 100%
     ),
-    url("/images/background-dark.png") !important;
+    url("/images/background-dark.jpg") !important;
 
   background-size: cover !important;
   background-position: center center !important;
