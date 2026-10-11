@@ -50,6 +50,11 @@ theme = 'mana'
   weight = 35
 
 [[menus.main]]
+  name = '友链'
+  pageRef = '/links'
+  weight = 36
+
+[[menus.main]]
   name = '关于'
   pageRef = '/about'
   weight = 40

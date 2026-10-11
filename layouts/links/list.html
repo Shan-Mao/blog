@@ -1,0 +1,159 @@
+{{ define "main" }}
+  {{/* 友链数据放在 data/links.yaml，新增友链只需要改那个文件 */}}
+  {{ $data := site.Data.links }}
+  {{/* 本站信息四项都写在 data/links.yaml 里；
+       名称、简介留空时退回 hugo.toml 的 title / params.description */}}
+  {{ $siteName := $data.site.name | default site.Title }}
+  {{ $siteUrl := $data.site.url }}
+  {{ $siteDesc := $data.site.desc | default site.Params.description }}
+  {{ $siteAvatar := $data.site.avatar | default "/images/avatar.png" }}
+  {{/* 头像可以写外部图床的完整地址，也可以写本站路径（/ 开头）。
+       写本站路径时才拼上域名，访客复制的就是能直接用的链接。
+       用 replaceRE 去掉末尾斜杠，避免依赖只有新版 Hugo 才有的函数
+       （Cloudflare Pages 上的 Hugo 比本地旧） */}}
+  {{ $avatarExternal := strings.HasPrefix $siteAvatar "http" }}
+  {{ $siteRoot := replaceRE "/+$" "" $siteUrl }}
+  {{ $avatarUrl := $siteAvatar }}
+  {{ if not $avatarExternal }}
+    {{ $avatarUrl = printf "%s%s" $siteRoot $siteAvatar }}
+  {{ end }}
+  {{ $links := $data.links }}
+
+  <div class="links-container">
+    <header class="list-header">
+      <h1 class="list-title">
+        {{/* 与其他列表页一致，标题用英文大写；_index.md 的中文 title 仍用于标签页与导航 */}}
+        <span class="list-title-line2">LINKS</span>
+      </h1>
+      {{ with .Description }}
+        <p class="list-description">{{ . }}</p>
+      {{ end }}
+    </header>
+
+    {{ with .Content }}
+      <div class="links-intro">{{ . }}</div>
+    {{ end }}
+
+
+    {{/* ---------- 本站信息 ---------- */}}
+    <section class="links-section">
+      <h2 class="links-section-title">本站信息</h2>
+      <p class="links-hint">点一下任意一行即可整行选中，直接复制就行。</p>
+
+      <div class="links-site">
+        <img
+          class="links-site-avatar"
+          src="{{ if $avatarExternal }}{{ $siteAvatar }}{{ else }}{{ $siteAvatar | relURL }}{{ end }}"
+          alt="{{ $siteName }} 的头像"
+          width="96"
+          height="96"
+          loading="lazy"
+          decoding="async">
+
+        <dl class="links-fields">
+          <dt>名称</dt>
+          <dd><span class="links-copy">{{ $siteName }}</span></dd>
+
+          <dt>地址</dt>
+          <dd>
+            <span class="links-copy links-copy-url">{{ $siteUrl }}</span>
+            {{ with $siteUrl }}
+              <a
+                class="links-visit"
+                href="{{ . }}"
+                target="_blank"
+                rel="noopener noreferrer">打开</a>
+            {{ end }}
+          </dd>
+
+          <dt>头像</dt>
+          <dd>
+            <span class="links-copy links-copy-url">{{ $avatarUrl }}</span>
+            {{ with $avatarUrl }}
+              <a
+                class="links-visit"
+                href="{{ . }}"
+                target="_blank"
+                rel="noopener noreferrer">打开</a>
+            {{ end }}
+          </dd>
+
+          <dt>简介</dt>
+          <dd><span class="links-copy">{{ $siteDesc }}</span></dd>
+        </dl>
+      </div>
+    </section>
+
+
+    {{/* ---------- 申请说明 ---------- */}}
+    <section class="links-section">
+      <h2 class="links-section-title">申请友链</h2>
+      <p>欢迎交换链接。先把本站信息加到你的站点，再按下面的格式发给我就行：</p>
+
+      <pre class="links-copy links-template">网站名称：{{ $siteName }}
+网站地址：{{ $siteUrl }}
+头像地址：{{ $avatarUrl }}
+网站简介：{{ $siteDesc }}</pre>
+
+      <ul class="links-rules">
+        <li>站点能正常访问，内容以原创为主</li>
+        <li>已经加上本站的链接</li>
+        <li>个人博客优先；先友后链、先链后友都可以</li>
+      </ul>
+
+      {{ with site.Params.social.github }}
+        <p class="links-contact">
+          联系方式：<a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ . }}</a>
+        </p>
+      {{ end }}
+    </section>
+
+
+    {{/* ---------- 友链列表 ---------- */}}
+    <section class="links-section">
+      <h2 class="links-section-title">友链</h2>
+
+      {{ if $links }}
+        <ul class="links-grid">
+          {{ range $links }}
+            {{ $name := .name }}
+            {{ $avatar := .avatar }}
+            {{ $desc := .desc }}
+            {{ with .url }}
+              <li class="links-item">
+                <a class="links-item-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">
+                  {{ if $avatar }}
+                    <img
+                      class="links-item-avatar"
+                      src="{{ $avatar }}"
+                      alt=""
+                      width="48"
+                      height="48"
+                      loading="lazy"
+                      decoding="async"
+                      referrerpolicy="no-referrer">
+                  {{ else }}
+                    {{/* 没给头像就用名称的第一个字顶上 */}}
+                    <span class="links-item-avatar links-item-avatar-fallback" aria-hidden="true">
+                      {{- with $name }}{{ printf "%.1s" . }}{{ end -}}
+                    </span>
+                  {{ end }}
+
+                  <span class="links-item-text">
+                    <span class="links-item-name">{{ $name }}</span>
+                    {{ with $desc }}<span class="links-item-desc">{{ . }}</span>{{ end }}
+                  </span>
+                </a>
+              </li>
+            {{ end }}
+          {{ end }}
+        </ul>
+      {{ else }}
+        <p class="links-empty">
+          这里还空着。<br>
+          欢迎来申请友链，成为第一个。
+        </p>
+      {{ end }}
+    </section>
+  </div>
+{{ end }}

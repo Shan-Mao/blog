@@ -1,0 +1,75 @@
+# ============================================================
+#  友链数据  ——  供 /links/ 页面使用
+# ------------------------------------------------------------
+#  新增一个友链 =
+#      1. 在下面 links: 里加一条记录
+#      2. 如果对方给的是本地头像图片，把图片放进 static/ 再写路径
+#  不需要改任何模板。
+#
+#  links 字段说明：
+#    name    必填。友站名称
+#    url     必填。友站地址，写完整 URL（http:// 或 https:// 开头）
+#    avatar  可选。头像图片地址；留空时页面上显示名称的第一个字
+#    desc    可选。一句话简介
+#
+#  注意：列表项前必须有 "- "，字段缩进两格，不要用 Tab。
+# ============================================================
+
+
+# ------------------------------------------------------------
+#  本站信息（展示给访客复制的那几行）
+#  这四项就是访客看到、并且会复制走的内容，想改直接改这里。
+#  ⚠ 地址不要用 baseURL：hugo.toml 里的 baseURL 是本地地址，
+#    这里必须写正式域名，否则访客复制到的是 localhost。
+#
+#    name    网站名称
+#    url     网站地址（正式域名）
+#    avatar  头像图片路径，以 / 开头表示本站图片
+#    desc    网站简介
+#
+#  名称、简介留空时会退回 hugo.toml 的 title / params.description。
+#  头像 avatar.png 由 assets/images/logo.png 缩小而来，放在 static/images/。
+# ------------------------------------------------------------
+site:
+  name: 山猫的博客
+  url: https://www.shanmao.icu/
+  avatar: https://img.shanmao.icu/mc/avatar.png
+  desc: 记录 AI、R 语言、编程、Minecraft 与各种折腾
+
+
+# ------------------------------------------------------------
+#  友链列表
+#  新增一条就照着下面的格式往下加，顺序就是页面上的显示顺序。
+#
+#  links:
+#    - name: 示例博客
+#      url: https://example.com/
+#      avatar: https://example.com/avatar.png
+#      desc: 一句话简介
+# ------------------------------------------------------------
+links:
+  - name: Rinty 雨屋
+    url: https://rinty.xyz/
+    avatar: https://rinty.xyz/upload/897409385.jpg
+    desc: 开发者，爱聊天，哈几米，写博客
+
+  - name: CN059的技术博客
+    url: https://blog.cn059.com/
+    avatar: https://bu.dusays.com/2025/10/09/68e798c0a1dc6.jpg
+    desc: 喜欢技术，喜欢你
+
+  # 博客园没有对外给出简介，这条先不写 desc，页面上只显示名字
+  - name: H_Elden
+    url: https://www.cnblogs.com/h-elden
+    avatar: https://pic.cnblogs.com/avatar/3633603/20251126185516.png
+
+  - name: 洛初 的 档案馆
+    url: https://blog.luochu.cc/
+    # 地址里带 & ，加引号免得 YAML 解析出错
+    avatar: "https://weavatar.com/avatar/4857f63b6e75c96621f24af9b451144731f670b55996cc8f28ac130e1a32332d?s=160&d=mm&r=g"
+    desc: 记录折腾过的各种东西
+
+  - name: Lucas的小博客
+    url: https://blog.lris625.top/
+    avatar: https://pic1.imgdb.cn/item/68fe309a3203f7be00a0c198.png
+    desc: 记录 Linux、Docker、Java、前端开发与服务器部署等技术学习笔记

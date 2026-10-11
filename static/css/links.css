@@ -1,0 +1,296 @@
+/* ==========================================================
+   友链 Links
+   仅用于 /links/ 页面（由 baseof.html 条件加载）
+   颜色全部取自 mana 主题变量，自动跟随亮/暗模式
+   ========================================================== */
+
+.links-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  background-color: var(--bg-secondary);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  /* 与文章页 .single-post / 画廊页保持一致 */
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+}
+
+.links-intro {
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ---------- 分块 ---------- */
+
+.links-section + .links-section {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--border-color);
+}
+
+.links-section-title {
+  margin: 0 0 var(--spacing-md) 0;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.links-section p {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.links-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ---------- 本站信息 ---------- */
+
+.links-site {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-lg);
+}
+
+.links-site-avatar {
+  flex-shrink: 0;
+  width: 96px;
+  height: 96px;
+  /* 用的是贴纸风格的方形头像，圆角方块比裁成圆形更好看 */
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-tertiary);
+}
+
+.links-fields {
+  /* dt / dd 靠 grid 排成两列，不需要额外包一层 div */
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-sm) var(--spacing-md);
+  align-items: baseline;
+  margin: 0;
+}
+
+.links-fields dt {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.links-fields dd {
+  margin: 0;
+  min-width: 0;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* ---------- 可复制的字段 ---------- */
+
+/* user-select: all 让单击整块选中，不用 JS 也能方便地复制 */
+.links-copy {
+  display: inline-block;
+  max-width: 100%;
+  padding: 0.15em 0.45em;
+  border-radius: 6px;
+  background-color: var(--tag-bg);
+  color: var(--tag-color);
+  cursor: text;
+  user-select: all;
+  -webkit-user-select: all;
+  overflow-wrap: anywhere;
+}
+
+.links-copy-url {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+.links-visit {
+  margin-left: var(--spacing-sm);
+  font-size: 0.8rem;
+  color: var(--accent-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.links-visit:hover {
+  text-decoration: underline;
+}
+
+.links-visit:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* ---------- 申请说明 ---------- */
+
+.links-template {
+  display: block;
+  margin: 0 0 var(--spacing-md) 0;
+  padding: var(--spacing-md);
+  border: 1px dashed var(--border-color);
+  border-radius: 12px;
+  background-color: var(--tag-bg);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.links-rules {
+  margin: 0 0 var(--spacing-md) 0;
+  padding-left: 1.25em;
+  color: var(--text-secondary);
+  line-height: 1.9;
+}
+
+.links-contact {
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.links-contact a {
+  color: var(--accent-primary);
+  text-decoration: none;
+}
+
+.links-contact a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- 友链列表 ---------- */
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--spacing-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.links-item-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background-color: var(--bg-tertiary);
+  text-decoration: none;
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-base);
+}
+
+.links-item-link:hover {
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.links-item-link:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.links-item-avatar {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--bg-secondary);
+}
+
+/* 没有头像时用名称首字顶上 */
+.links-item-avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  background-color: var(--tag-bg);
+  color: var(--tag-color);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.links-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  min-width: 0;
+}
+
+.links-item-name {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.links-item-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ---------- 空状态 ---------- */
+
+.links-empty {
+  color: var(--text-secondary);
+  line-height: 1.9;
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 768px) {
+  .links-container {
+    padding: var(--spacing-md);
+  }
+
+  /* 头像换到上面，字段改为上下排列，长网址才不会被挤成一条线 */
+  .links-site {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  .links-fields {
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 0.2em;
+  }
+
+  .links-fields dt {
+    margin-top: var(--spacing-sm);
+  }
+
+  .links-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- 动效偏好 ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .links-item-link {
+    transition: none;
+  }
+
+  .links-item-link:hover {
+    transform: none;
+  }
+}
