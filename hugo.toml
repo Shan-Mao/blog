@@ -57,6 +57,11 @@ theme = 'mana'
   weight = 36
 
 [[menus.main]]
+  name = '更多工具'
+  pageRef = '/tools'
+  weight = 37
+
+[[menus.main]]
   name = '关于'
   pageRef = '/about'
   weight = 40

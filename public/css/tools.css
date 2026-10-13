@@ -1,0 +1,328 @@
+/* ==========================================================
+   更多工具 Tools
+   仅用于 /tools/ 页面（由 baseof.html 条件加载）
+   颜色全部取自 mana 主题变量，自动跟随亮/暗模式
+   ========================================================== */
+
+.tools-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  background-color: var(--bg-secondary);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  /* 与文章页 .single-post / 友链页保持一致 */
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+}
+
+.tools-intro {
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ---------- 左右分栏 ---------- */
+
+.tools-layout {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: var(--spacing-xl);
+  align-items: start;
+}
+
+/* ---------- 左侧分类导航 ---------- */
+
+.tools-sidebar {
+  /* 桌面端吸顶：跟着页面滚动，方便随时切分类。
+     88px = 吸顶导航栏高度 + 一点余量 */
+  position: sticky;
+  top: 88px;
+}
+
+.tools-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background-color: var(--bg-tertiary);
+}
+
+.tools-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  padding: 0.5em 0.75em;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base);
+}
+
+.tools-nav-link:hover {
+  background-color: var(--tag-bg);
+  color: var(--text-primary);
+}
+
+.tools-nav-link:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* 当前分类高亮（滚动时由 tools.js 切换） */
+.tools-nav-link.is-active {
+  background-color: var(--tag-bg);
+  color: var(--accent-primary);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--accent-primary);
+}
+
+.tools-nav-count {
+  flex-shrink: 0;
+  min-width: 1.6em;
+  padding: 0 0.4em;
+  border-radius: 999px;
+  background-color: var(--tag-bg);
+  color: var(--tag-color);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.tools-nav-link.is-active .tools-nav-count {
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+/* ---------- 右侧内容区 ---------- */
+
+.tools-main {
+  min-width: 0; /* 防止长内容把网格撑破、出现横向滚动条 */
+}
+
+/* 每个分类一块，块与块之间用分隔线隔开 */
+.tools-section + .tools-section {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--border-color);
+}
+
+/* 点导航跳转时留出吸顶导航栏的高度，标题不会被挡住 */
+.tools-section {
+  scroll-margin-top: 88px;
+}
+
+.tools-section-title {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.tools-section-desc {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+/* ---------- 工具卡片 ---------- */
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--spacing-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tools-card-item {
+  min-width: 0;
+}
+
+.tools-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  height: 100%;
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background-color: var(--bg-tertiary);
+  text-decoration: none;
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-base);
+}
+
+.tools-card:hover {
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.tools-card:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.tools-card-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: contain;
+  background-color: var(--bg-secondary);
+}
+
+/* 名称首字 / emoji 兜底 */
+.tools-card-icon-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  background-color: var(--tag-bg);
+  color: var(--tag-color);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.tools-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  min-width: 0;
+  flex: 1;
+}
+
+.tools-card-name {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.tools-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* 右上角的小箭头，提示会跳到外部站点 */
+.tools-card-arrow {
+  flex-shrink: 0;
+  align-self: flex-start;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.tools-card:hover .tools-card-arrow,
+.tools-card:focus-visible .tools-card-arrow {
+  opacity: 1;
+}
+
+/* ---------- 空状态 ---------- */
+
+.tools-empty {
+  margin: 0;
+  padding: var(--spacing-md);
+  border: 1px dashed var(--border-color);
+  border-radius: 12px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+
+.tools-empty code {
+  padding: 0 0.3em;
+  border-radius: 4px;
+  background-color: var(--tag-bg);
+  color: var(--tag-color);
+}
+
+/* ---------- 响应式 ---------- */
+
+/* 中等屏幕：导航栏收窄一点 */
+@media (max-width: 1024px) {
+  .tools-layout {
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: var(--spacing-lg);
+  }
+}
+
+/* 移动端：改成上下排列，分类栏变成一行可横向滑动的按钮 */
+@media (max-width: 768px) {
+  .tools-container {
+    padding: var(--spacing-md);
+  }
+
+  .tools-layout {
+    display: block;
+  }
+
+  .tools-sidebar {
+    position: static;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .tools-nav {
+    flex-direction: row;
+    gap: var(--spacing-sm);
+    /* 分类多的时候在这条导航里横向滑动，不会把整个页面撑宽 */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .tools-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tools-nav-link {
+    flex-shrink: 0;
+    border: 1px solid var(--border-color);
+  }
+
+  .tools-nav-link.is-active {
+    box-shadow: none;
+  }
+
+  /* 卡片列数交给上面的 auto-fill 自己算：窄屏一列，平板两列 */
+  .tools-section {
+    scroll-margin-top: 72px;
+  }
+}
+
+/* ---------- 动效偏好 ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .tools-card,
+  .tools-nav-link,
+  .tools-card-arrow {
+    transition: none;
+  }
+
+  .tools-card:hover {
+    transform: none;
+  }
+}

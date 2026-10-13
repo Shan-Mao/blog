@@ -9,6 +9,9 @@
     {{ if eq .Type "links" }}
       <link rel="stylesheet" href="/css/links.css">
     {{ end }}
+    {{ if eq .Type "tools" }}
+      <link rel="stylesheet" href="/css/tools.css">
+    {{ end }}
   </head>
   <body class="flex flex-col min-h-screen{{ if eq site.Language.LanguageDirection "rtl" }} rtl{{ end }}">
     <a href="#main-content" class="skip-to-main" aria-label="{{ i18n "skipToMain" }}"
@@ -57,6 +60,10 @@
 
 {{ if eq .Type "gallery" }}
 <script src="/js/gallery.js" defer></script>
+{{ end }}
+
+{{ if eq .Type "tools" }}
+<script src="/js/tools.js" defer></script>
 {{ end }}
   </body>
 </html>

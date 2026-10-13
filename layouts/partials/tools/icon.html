@@ -1,0 +1,23 @@
+{{/* 工具卡片左侧的图标。传入一条工具数据（map）。
+     icon 是图片地址就渲染图片，是 emoji / 短文字就直接显示，
+     没写 icon 时退回工具名称的第一个字 —— 所以 icon 始终是可选的。 */}}
+{{ $icon := .icon }}
+{{ if $icon }}
+  {{ if or (strings.HasPrefix $icon "http") (strings.HasPrefix $icon "/") }}
+    <img
+      class="tools-card-icon"
+      src="{{ $icon }}"
+      alt=""
+      width="32"
+      height="32"
+      loading="lazy"
+      decoding="async"
+      referrerpolicy="no-referrer">
+  {{ else }}
+    <span class="tools-card-icon tools-card-icon-text" aria-hidden="true">{{ $icon }}</span>
+  {{ end }}
+{{ else }}
+  <span class="tools-card-icon tools-card-icon-text" aria-hidden="true">
+    {{- with .name }}{{ printf "%.1s" . }}{{ end -}}
+  </span>
+{{ end }}

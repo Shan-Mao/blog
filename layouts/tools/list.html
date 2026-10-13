@@ -1,0 +1,133 @@
+{{ define "main" }}
+  {{/* 工具数据放在 data/tools.yaml，新增工具只需要改那个文件 */}}
+  {{ $data := site.Data.tools }}
+  {{ $categories := $data.categories | default slice }}
+  {{ $tools := $data.tools | default slice }}
+
+  {{/* 先把所有分类的 id 收起来，用来判断有没有「分类写错」的工具 */}}
+  {{ $knownIds := slice }}
+  {{ range $categories }}
+    {{ $knownIds = $knownIds | append (.id | default (anchorize .name)) }}
+  {{ end }}
+
+  {{/* 没对上任何分类的工具，兜底放到最后一组，避免数据写错就凭空消失 */}}
+  {{ $others := slice }}
+  {{ range $tools }}
+    {{ $cat := .category | default "" }}
+    {{ if not (in $knownIds $cat) }}
+      {{ $others = $others | append . }}
+    {{ end }}
+  {{ end }}
+
+  <div class="tools-container">
+    <header class="list-header">
+      <h1 class="list-title">
+        {{/* 与其他列表页一致，标题用英文大写；_index.md 的中文 title 仍用于标签页与导航 */}}
+        <span class="list-title-line2">TOOLS</span>
+      </h1>
+      {{ with .Description }}
+        <p class="list-description">{{ . }}</p>
+      {{ end }}
+    </header>
+
+    {{ with .Content }}
+      <div class="tools-intro">{{ . }}</div>
+    {{ end }}
+
+    {{ if $categories }}
+      <div class="tools-layout">
+        {{/* ---------- 左侧：分类导航 ---------- */}}
+        <aside class="tools-sidebar">
+          <nav class="tools-nav" aria-label="工具分类">
+            {{ range $categories }}
+              {{ $id := .id | default (anchorize .name) }}
+              <a class="tools-nav-link" href="#{{ $id }}" data-tools-nav="{{ $id }}">
+                <span class="tools-nav-name">{{ .name }}</span>
+                <span class="tools-nav-count">{{ len (where $tools "category" $id) }}</span>
+              </a>
+            {{ end }}
+
+            {{ if $others }}
+              <a class="tools-nav-link" href="#tools-uncategorized" data-tools-nav="tools-uncategorized">
+                <span class="tools-nav-name">未分类</span>
+                <span class="tools-nav-count">{{ len $others }}</span>
+              </a>
+            {{ end }}
+          </nav>
+        </aside>
+
+        {{/* ---------- 右侧：按分类展示工具 ---------- */}}
+        <div class="tools-main">
+          {{ range $categories }}
+            {{ $id := .id | default (anchorize .name) }}
+            {{ $catTools := where $tools "category" $id }}
+            <section class="tools-section" id="{{ $id }}">
+              <h2 class="tools-section-title">{{ .name }}</h2>
+              {{ with .description }}
+                <p class="tools-section-desc">{{ . }}</p>
+              {{ end }}
+
+              {{ if $catTools }}
+                <ul class="tools-grid">
+                  {{ range $catTools }}
+                    {{ $tool := . }}
+                    {{ with .url }}
+                      <li class="tools-card-item">
+                        <a class="tools-card" href="{{ . }}" target="_blank" rel="noopener noreferrer">
+                          {{ partial "tools/icon.html" $tool }}
+                          <span class="tools-card-text">
+                            <span class="tools-card-name">{{ $tool.name }}</span>
+                            {{ with $tool.description }}
+                              <span class="tools-card-desc">{{ . }}</span>
+                            {{ end }}
+                          </span>
+                          <span class="tools-card-arrow" aria-hidden="true">↗</span>
+                        </a>
+                      </li>
+                    {{ end }}
+                  {{ end }}
+                </ul>
+              {{ else }}
+                <p class="tools-empty">这个分类暂时还没有工具。</p>
+              {{ end }}
+            </section>
+          {{ end }}
+
+          {{/* 分类对不上的工具统一放这里 */}}
+          {{ if $others }}
+            <section class="tools-section" id="tools-uncategorized">
+              <h2 class="tools-section-title">未分类</h2>
+              <p class="tools-section-desc">
+                这些工具的 category 没和 data/tools.yaml 里的分类 id 对上，检查一下就能归位。
+              </p>
+              <ul class="tools-grid">
+                {{ range $others }}
+                  {{ $tool := . }}
+                  {{ with .url }}
+                    <li class="tools-card-item">
+                      <a class="tools-card" href="{{ . }}" target="_blank" rel="noopener noreferrer">
+                        {{ partial "tools/icon.html" $tool }}
+                        <span class="tools-card-text">
+                          <span class="tools-card-name">{{ $tool.name }}</span>
+                          {{ with $tool.description }}
+                            <span class="tools-card-desc">{{ . }}</span>
+                          {{ end }}
+                        </span>
+                        <span class="tools-card-arrow" aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                  {{ end }}
+                {{ end }}
+              </ul>
+            </section>
+          {{ end }}
+        </div>
+      </div>
+    {{ else }}
+      <p class="tools-empty">
+        还没有配置分类。<br>
+        在 <code>data/tools.yaml</code> 的 <code>categories</code> 里加一条就能看到了。
+      </p>
+    {{ end }}
+  </div>
+{{ end }}
