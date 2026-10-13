@@ -54,21 +54,25 @@ tools:
     url: https://savetwitter.net/zh-cn3
     category: download
     description: 推特视频、GIF下载
+    icon: https://img.shanmao.icu/icon/x.png
 
   - name: tiktok
     url: https://savesora.com/zh-cn/tiktok
     category: download
     description: 洋抖视频下载
+    icon: https://img.shanmao.icu/icon/tiktok.ico
 
   - name: YouTube
     url: https://www.tapsave.net/zh/youtube/
     category: download
     description: 油管视频下载
+    icon: https://img.shanmao.icu/icon/YouTube.png
 
   - name: Pinterest
     url: https://snappin.app/zh/pinterest-video-downloader-1
     category: download
     description: Pinterest视频下载
+    icon: https://img.shanmao.icu/icon/Pinterest.png
 
   - name: 占位
     url: 占位
@@ -98,6 +102,7 @@ tools:
     url: https://dash.cloudflare.com/
     category: online
     description: 域名解析、CDN 和 Pages 部署，本站就在这上面
+    icon: https://dash.cloudflare.com/favicons/favicon.ico
 
   # ---------- 其他工具 ----------
   # 这个分类现在是空的，页面上会显示一句提示，属于正常现象。
