@@ -29,7 +29,7 @@
               "state": {
                 "file": "content/posts/从文献角度学习统计学.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
               "title": "从文献角度学习统计学"
@@ -215,9 +215,10 @@
   },
   "active": "b79a9033d413050a",
   "lastOpenFiles": [
-    "content/posts/2026-10-12-Sarcopenia is poor risk for unfavorable short- and long-term outcomes in stage I non-small cell lung cancer.md",
-    "content/posts/从文献角度学习统计学.md",
     "content/posts/安装R语言.md",
+    "content/posts/从文献角度学习统计学.md",
+    "content/posts/2026-10-16.md",
+    "content/posts/2026-10-12-Sarcopenia is poor risk for unfavorable short- and long-term outcomes in stage I non-small cell lung cancer.md",
     "_templates/文章.md",
     "content/posts/hello-world.md",
     "content/posts/0基础通过与AI对话完成对AI下达指令利用R语言的完成工作.md",
