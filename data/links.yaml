@@ -31,7 +31,7 @@
 #  头像 avatar.png 由 assets/images/logo.png 缩小而来，放在 static/images/。
 # ------------------------------------------------------------
 site:
-  name: 山猫的博客
+  name: 山猫的自留地
   url: https://www.shanmao.icu/
   avatar: https://img.shanmao.icu/mc/avatar.png
   desc: 记录 AI、R 语言、编程、Minecraft 与各种折腾
