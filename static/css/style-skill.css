@@ -1,0 +1,1363 @@
+/* ==========================================================
+   Style Skill 主题层
+   ----------------------------------------------------------
+   1) 亮色主题：按 Style Skill 令牌重构
+        --color-bg      #F5F6F6
+        --color-primary #F7F609
+        --color-text    #1E1E21
+      视觉手法：去掉照片背景与玻璃拟态，改成干净的浅灰画布；
+      黄色只做强调（高亮块、标签、激活态、悬停），正文保持墨色；
+      硬边偏移阴影只出现在可交互卡片/控件的 hover、focus 上。
+
+   2) 暗色主题：只把强调色换成 #F7F609 的相反色（蓝色系），
+      背景、文字、玻璃效果、版式全部保持原样。
+
+   本文件在 custom.css 和各页面样式之后加载，用来覆盖主题默认值。
+   ========================================================== */
+
+
+/* ==========================================================
+   一、亮色主题：颜色令牌
+   ========================================================== */
+
+html[data-theme="light"] {
+  color-scheme: light;
+
+  /* 画布与表面 */
+  --bg-deep: #f5f6f6;
+  --bg-primary: #f5f6f6;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #fbfbf9;
+
+  /* 文字：正文用确认的令牌，次级色由墨色派生，保证可读性 */
+  --text-primary: #1e1e21;
+  --text-secondary: #4a4a50;
+  --text-muted: #64646b;
+
+  /* 强调色：黄色只做填充/高亮，压在黄色上的文字一律用墨色 */
+  --accent-primary: #f7f609;
+  --accent-mid-purple: #f7f609;
+  --accent-secondary: #f7f609;
+  --accent-hover: #edeC00;
+  /* 标题描边、少数以强调色当文字色的地方改用墨色，避免黄字看不清 */
+  --accent-light-purple: #1e1e21;
+
+  --accent-primary-rgba-03: rgba(247, 246, 9, 0.35);
+  --accent-primary-rgba-05: rgba(247, 246, 9, 0.55);
+  --accent-light-purple-rgba-01: rgba(247, 246, 9, 0.18);
+  --accent-light-purple-rgba-03: rgba(247, 246, 9, 0.4);
+  --accent-mid-purple-rgba-05: rgba(247, 246, 9, 0.12);
+  --accent-mid-purple-rgba-01: rgba(247, 246, 9, 0.2);
+  --accent-mid-purple-rgba-02: rgba(247, 246, 9, 0.3);
+
+  /* 表面与描边：描边用墨色的低透明度，保持安静 */
+  --glass-surface: #ffffff;
+  --glass-block: #ffffff;
+  --glass-border: rgba(30, 30, 33, 0.14);
+  --border-color: rgba(30, 30, 33, 0.14);
+
+  /* 标签 */
+  --tag-bg: #f7f609;
+  --tag-color: #1e1e21;
+
+  /* 阴影：默认柔和，硬边阴影在交互态单独实现 */
+  --shadow-sm: 0 1px 2px rgba(30, 30, 33, 0.06);
+  --shadow-md: 0 6px 16px rgba(30, 30, 33, 0.1);
+  --shadow-lg: 0 16px 34px rgba(30, 30, 33, 0.14);
+
+  --yellow-accent: #f7f609;
+  --yellow-hover: #edeC00;
+
+  /* 本文件自用 */
+  --ink: #1e1e21;
+  --ink-border: rgba(30, 30, 33, 0.14);
+  --ink-border-strong: #1e1e21;
+}
+
+
+/* ==========================================================
+   二、亮色主题：画布
+   ========================================================== */
+
+html[data-theme="light"] body {
+  background-color: #f5f6f6;
+  /* custom.css 里带 !important 的照片背景，这里要一起覆盖掉 */
+  background-image: none !important;
+  background-attachment: scroll !important;
+  background-size: auto !important;
+  color: var(--text-primary);
+}
+
+/* 主题的颗粒纹理在纯色画布上没有意义，关掉 */
+html[data-theme="light"] body::before {
+  display: none;
+}
+
+html[data-theme="light"] ::selection {
+  background-color: #f7f609;
+  color: #1e1e21;
+}
+
+/* 键盘焦点统一用墨色描边，任何背景上都看得清 */
+html[data-theme="light"] :focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+
+/* ==========================================================
+   二·补充、仅首页：背景照片（其余页面保持纯色画布）
+   首页恢复站点原有的两张 Minecraft 截图，叠一层同色薄纱
+   保证标题和卡片文字的对比度；其他页面不受影响。
+   ========================================================== */
+
+html[data-theme="light"] body[data-home] {
+  background-image:
+    linear-gradient(rgba(245, 246, 246, 0.62), rgba(245, 246, 246, 0.74)),
+    url("/images/background.jpg") !important;
+  background-size: cover, cover !important;
+  background-position: center center, center center !important;
+  background-attachment: fixed, fixed !important;
+  background-repeat: no-repeat, no-repeat !important;
+}
+
+html[data-theme="dark"] body[data-home] {
+  background-image:
+    linear-gradient(rgba(20, 20, 23, 0.7), rgba(20, 20, 23, 0.8)),
+    url("/images/background-dark.jpg") !important;
+  background-size: cover, cover !important;
+  background-position: center center, center center !important;
+  background-attachment: fixed, fixed !important;
+  background-repeat: no-repeat, no-repeat !important;
+}
+
+/* 移动端固定背景开销大、iOS 表现不稳，改为随页面滚动 */
+@media (max-width: 768px) {
+  html[data-theme="light"] body[data-home],
+  html[data-theme="dark"] body[data-home] {
+    background-attachment: scroll, scroll !important;
+    background-position: center top, center top !important;
+  }
+}
+
+
+/* ==========================================================
+   三、亮色主题：顶栏与导航
+   ========================================================== */
+
+html[data-theme="light"] .sticky-header {
+  background-color: #f5f6f6;
+  border-bottom: 1px solid var(--ink-border);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html[data-theme="light"] .header-logo .logo-link:hover,
+html[data-theme="light"] .search-toggle:hover,
+html[data-theme="light"] .theme-toggle:hover,
+html[data-theme="light"] .mobile-menu-toggle:hover {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .menu-link {
+  color: var(--text-secondary);
+  border-radius: 6px;
+}
+
+html[data-theme="light"] .menu-link:hover {
+  color: var(--ink);
+  background-color: rgba(247, 246, 9, 0.45);
+}
+
+/* 当前页：黄色实心块 + 墨色文字，是全站最强的强调 */
+html[data-theme="light"] .menu-link.active,
+html[data-theme="light"] .mobile-menu-nav .menu-link.active {
+  color: var(--ink);
+  background-color: #f7f609;
+  font-weight: 600;
+}
+
+html[data-theme="light"] .mobile-menu-nav .menu-link:hover,
+html[data-theme="light"] .mobile-menu-nav .menu-link:focus,
+html[data-theme="light"] .mobile-menu-close:hover,
+html[data-theme="light"] .mobile-search-toggle:hover {
+  color: var(--ink);
+  background-color: rgba(247, 246, 9, 0.35);
+}
+
+html[data-theme="light"] .mobile-menu-content {
+  background-color: #f5f6f6;
+  border-right: 1px solid var(--ink-border);
+}
+
+html[data-theme="light"] .mobile-menu-header,
+html[data-theme="light"] .mobile-menu-footer {
+  border-color: var(--ink-border);
+}
+
+
+/* ==========================================================
+   四、亮色主题：首页 Hero
+   ========================================================== */
+
+/* 标题第二行保留描边字，颜色换成墨色（--accent-light-purple 已改为墨色） */
+
+/* 标题下方加一条黄色短杠作为强调 */
+html[data-theme="light"] .hero-title::after {
+  content: "";
+  display: block;
+  width: 96px;
+  height: 8px;
+  margin-top: 1.25rem;
+  background-color: #f7f609;
+  border-radius: 2px;
+}
+
+html[data-theme="light"] .hero-subtitle {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+/* 首页 logo 保留主题原有的悬浮动画，只去掉强调色发光 */
+html[data-theme="light"] .hero-logo,
+html[data-theme="light"] .hero-logo-placeholder {
+  filter: none;
+}
+
+html[data-theme="light"] .hero-logo-placeholder {
+  background-color: #fff;
+  border: 2px solid var(--ink-border-strong);
+}
+
+
+/* ==========================================================
+   五、亮色主题：列表页大标题
+   ========================================================== */
+
+html[data-theme="light"] .list-title-line2,
+html[data-theme="light"] .tags-title .list-title-line2 {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ink);
+  text-stroke: 2px var(--ink);
+}
+
+html[data-theme="light"] .list-title::after,
+html[data-theme="light"] .tags-title::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 7px;
+  margin: 0.75rem auto 0;
+  background-color: #f7f609;
+  border-radius: 2px;
+}
+
+html[data-theme="light"] .list-description {
+  color: var(--text-secondary);
+}
+
+
+/* ==========================================================
+   六、亮色主题：卡片与容器（去玻璃、留描边）
+   ========================================================== */
+
+html[data-theme="light"] .post-card,
+html[data-theme="light"] .filter-accordion,
+html[data-theme="light"] .tags-cloud,
+html[data-theme="light"] .pagination,
+html[data-theme="light"] .links-container,
+html[data-theme="light"] .tools-container,
+html[data-theme="light"] .gallery-container,
+html[data-theme="light"] .tools-nav,
+html[data-theme="light"] .links-item-link,
+html[data-theme="light"] .tools-card,
+html[data-theme="light"] .gallery-item,
+html[data-theme="light"] .related-post-item,
+html[data-theme="light"] .nav-link {
+  background-color: #ffffff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  border-color: var(--ink-border);
+}
+
+html[data-theme="light"] .links-container,
+html[data-theme="light"] .tools-container,
+html[data-theme="light"] .gallery-container {
+  border: 1px solid var(--ink-border);
+}
+
+/* 可点击卡片的悬停：1px 墨色描边 + 4px 硬边偏移阴影，不用大范围模糊 */
+html[data-theme="light"] .post-card:hover,
+html[data-theme="light"] .links-item-link:hover,
+html[data-theme="light"] .tools-card:hover,
+html[data-theme="light"] .gallery-item:hover {
+  border-color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  transform: translate(-2px, -2px);
+}
+
+/* 论坛式卡片里的标题下划线：悬停时变成黄色粗线 */
+html[data-theme="light"] .post-title a {
+  text-decoration-color: transparent;
+}
+
+html[data-theme="light"] .post-card:hover .post-title a {
+  text-decoration-color: #f7f609;
+  text-decoration-thickness: 3px;
+}
+
+html[data-theme="light"] .post-description {
+  color: var(--text-secondary);
+}
+
+
+/* ==========================================================
+   七、亮色主题：标签
+   ========================================================== */
+
+html[data-theme="light"] .post-tag,
+html[data-theme="light"] .tag-chip-large {
+  background-color: rgba(247, 246, 9, 0.5);
+  color: var(--ink);
+  border: 1px solid rgba(30, 30, 33, 0.16);
+  border-radius: 4px;
+}
+
+html[data-theme="light"] .post-tag:hover,
+html[data-theme="light"] .tag-item:hover .tag-chip-large {
+  background-color: #f7f609;
+  color: var(--ink);
+  border-color: var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+html[data-theme="light"] .tag-count-badge {
+  color: var(--text-secondary);
+}
+
+
+/* ==========================================================
+   八、亮色主题：筛选器、输入框、分页
+   ========================================================== */
+
+html[data-theme="light"] .filter-toggle-btn:hover,
+html[data-theme="light"] .toc-toggle:hover {
+  background-color: rgba(247, 246, 9, 0.3);
+}
+
+html[data-theme="light"] .tag-search-input,
+html[data-theme="light"] .filter-select,
+html[data-theme="light"] .filter-tag-label,
+html[data-theme="light"] .filter-clear-btn {
+  background-color: #ffffff;
+  border: 1px solid var(--ink-border);
+  color: var(--ink);
+}
+
+html[data-theme="light"] .tag-search-input:focus,
+html[data-theme="light"] .filter-select:focus {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+html[data-theme="light"] .filter-tag-checkbox:hover .filter-tag-label {
+  border-color: var(--ink);
+  background-color: rgba(247, 246, 9, 0.3);
+}
+
+html[data-theme="light"] .filter-tag-input:checked + .filter-tag-label {
+  background-color: #f7f609;
+  border-color: var(--ink);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+html[data-theme="light"] .filter-clear-btn:hover {
+  background-color: #f7f609;
+  border-color: var(--ink);
+  color: var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  transform: translate(-1px, -1px);
+}
+
+html[data-theme="light"] .tag-search-result-item:hover,
+html[data-theme="light"] .tag-search-result-item.selected {
+  background-color: rgba(247, 246, 9, 0.35);
+  color: var(--ink);
+}
+
+html[data-theme="light"] .pagination-link,
+html[data-theme="light"] .pagination-number {
+  background-color: #ffffff;
+  border: 1px solid var(--ink-border);
+  color: var(--ink);
+}
+
+html[data-theme="light"] .pagination-link:hover:not(.pagination-link-disabled),
+html[data-theme="light"] .pagination-number:hover {
+  background-color: #f7f609;
+  border-color: var(--ink);
+  color: var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  transform: translate(-1px, -1px);
+}
+
+html[data-theme="light"] .pagination-number-current,
+html[data-theme="light"] .pagination-number-current:hover {
+  background-color: #f7f609;
+  border-color: var(--ink);
+  color: var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  transform: none;
+}
+
+/* 分页里“第 X 页”的当前页码用黄色高亮块 */
+html[data-theme="light"] .pagination-current {
+  color: var(--ink);
+  background-color: rgba(247, 246, 9, 0.6);
+  padding: 0 0.25em;
+  border-radius: 3px;
+}
+
+
+/* ==========================================================
+   九、亮色主题：文章页
+   ========================================================== */
+
+html[data-theme="light"] .single-post {
+  background-color: #ffffff;
+  border: 1px solid var(--ink-border);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: none;
+}
+
+/* 正文链接：墨色字 + 黄色粗下划线，悬停时像荧光笔涂过 */
+html[data-theme="light"] .post-content-main a,
+html[data-theme="light"] .about-content-full a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: #f7f609;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+html[data-theme="light"] .post-content-main a:hover,
+html[data-theme="light"] .about-content-full a:hover {
+  color: var(--ink);
+  background-color: #f7f609;
+  text-decoration-color: transparent;
+}
+
+html[data-theme="light"] .breadcrumb-list a,
+html[data-theme="light"] .related-post-link strong {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .related-post-link strong {
+  text-decoration: underline;
+  text-decoration-color: #f7f609;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+/* 目录：去掉紫色渐变，改成白底描边 */
+html[data-theme="light"] .post-toc {
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid var(--ink-border);
+}
+
+html[data-theme="light"] .post-toc::before {
+  background-color: transparent;
+}
+
+html[data-theme="light"] .toc-burger-icon {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .toc-nav a:hover {
+  color: var(--ink);
+  background-color: rgba(247, 246, 9, 0.3);
+}
+
+html[data-theme="light"] .toc-nav a.active {
+  color: var(--ink);
+  background-color: rgba(247, 246, 9, 0.45);
+  border-left-color: var(--ink);
+  font-weight: 600;
+}
+
+html[data-theme="light"] .nav-link:hover {
+  background-color: #ffffff;
+  border: 1px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+/* 引用块：墨色竖线 + 淡黄底 */
+html[data-theme="light"] .post-content-main blockquote.blockquote-regular {
+  border-left: 4px solid var(--ink);
+  background-color: rgba(247, 246, 9, 0.22);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+
+/* ==========================================================
+   十、亮色主题：关于页、页脚
+   ========================================================== */
+
+html[data-theme="light"] .about-page-avatar {
+  border: 3px solid var(--ink);
+}
+
+html[data-theme="light"] .site-footer {
+  background-color: transparent;
+  border-top: 1px solid var(--ink-border);
+}
+
+html[data-theme="light"] .social-link {
+  color: var(--text-secondary);
+}
+
+html[data-theme="light"] .social-link:hover {
+  color: var(--ink);
+}
+
+
+/* ==========================================================
+   十一、亮色主题：搜索面板（原本是写死的深色，改成白底墨字）
+   ========================================================== */
+
+html[data-theme="light"] .search-modal-backdrop {
+  background-color: rgba(30, 30, 33, 0.35);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+html[data-theme="light"] .search-input-wrapper {
+  background: #ffffff;
+  border: 1px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+html[data-theme="light"] .search-input {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .search-input::placeholder {
+  color: #6b6b72;
+}
+
+html[data-theme="light"] .search-input-icon,
+html[data-theme="light"] .search-input-clear,
+html[data-theme="light"] .search-modal-close {
+  color: var(--text-secondary);
+}
+
+html[data-theme="light"] .search-input-clear:hover,
+html[data-theme="light"] .search-modal-close:hover {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .search-results {
+  background: #ffffff;
+  border: 1px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html[data-theme="light"] .search-result-item {
+  border-bottom-color: var(--ink-border);
+}
+
+html[data-theme="light"] .search-result-item:hover {
+  background-color: rgba(247, 246, 9, 0.35);
+}
+
+html[data-theme="light"] .search-result-title {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .search-result-title mark,
+html[data-theme="light"] .search-result-summary mark {
+  background-color: #f7f609;
+  color: var(--ink);
+}
+
+html[data-theme="light"] .search-result-summary {
+  color: var(--text-secondary);
+}
+
+html[data-theme="light"] .search-result-date,
+html[data-theme="light"] .search-result-empty {
+  color: var(--text-muted);
+}
+
+
+/* ==========================================================
+   十二、亮色主题：画廊、友链、工具页的局部修正
+   ========================================================== */
+
+html[data-theme="light"] .gallery-filter-btn {
+  background-color: #ffffff;
+  border: 1px solid var(--ink-border);
+  color: var(--text-secondary);
+}
+
+html[data-theme="light"] .gallery-filter-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background-color: rgba(247, 246, 9, 0.3);
+}
+
+html[data-theme="light"] .gallery-filter-btn.is-active {
+  background-color: #f7f609;
+  border-color: var(--ink);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+html[data-theme="light"] .links-template {
+  background-color: rgba(247, 246, 9, 0.18);
+  border: 1px dashed rgba(30, 30, 33, 0.35);
+  color: var(--ink);
+}
+
+html[data-theme="light"] .links-item-avatar-fallback,
+html[data-theme="light"] .tools-card-icon-text {
+  border: 1px solid rgba(30, 30, 33, 0.2);
+  background-color: #f7f609;
+  color: var(--ink);
+}
+
+html[data-theme="light"] .tools-nav-link:hover {
+  background-color: rgba(247, 246, 9, 0.3);
+  color: var(--ink);
+}
+
+html[data-theme="light"] .tools-nav-link.is-active {
+  background-color: #f7f609;
+  color: var(--ink);
+  box-shadow: inset 3px 0 0 var(--ink);
+}
+
+html[data-theme="light"] .tools-nav-link.is-active .tools-nav-count {
+  background-color: var(--ink);
+  color: #f7f609;
+}
+
+html[data-theme="light"] .tools-empty code,
+html[data-theme="light"] .links-empty code {
+  background-color: rgba(247, 246, 9, 0.4);
+  color: var(--ink);
+}
+
+
+/* ==========================================================
+   十三、亮色主题：回到顶部
+   ========================================================== */
+
+html[data-theme="light"] .scroll-to-top {
+  color: var(--ink);
+  background-color: #ffffff;
+  border: 1px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+html[data-theme="light"] .scroll-to-top:hover {
+  color: var(--ink);
+  background-color: #f7f609;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+
+/* ==========================================================
+   十三·补充、亮色主题：主题里漏网的强调色文字与焦点态
+   主题有些地方把强调色直接当文字色用，黄色字在白底上几乎
+   不可读，这里统一改成墨色；黄色只作为底色和下划线保留。
+   ========================================================== */
+
+html[data-theme="light"] .archive-link:hover,
+html[data-theme="light"] .post-content-main .alert-content a,
+html[data-theme="light"] .links-contact a {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .post-content-main .alert-content a,
+html[data-theme="light"] .links-contact a {
+  text-decoration: underline;
+  text-decoration-color: #f7f609;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+html[data-theme="light"] .post-content-main .alert-content a:hover,
+html[data-theme="light"] .links-contact a:hover {
+  background-color: #f7f609;
+  text-decoration-color: transparent;
+}
+
+/* 年份圆点：主题用 强调色→浅紫 渐变配白字，在亮色下会变成黄→墨渐变，改为纯黄底墨字 */
+html[data-theme="light"] .year-circle {
+  background: #f7f609;
+  background-image: none;
+  color: var(--ink);
+}
+
+/* 焦点态：主题自带的黄色描边在白底上看不见，统一改成墨色描边 */
+html[data-theme="light"] a:focus-visible,
+html[data-theme="light"] button:focus-visible,
+html[data-theme="light"] [role="button"]:focus-visible,
+html[data-theme="light"] input:focus-visible,
+html[data-theme="light"] select:focus-visible,
+html[data-theme="light"] textarea:focus-visible,
+html[data-theme="light"] summary:focus-visible {
+  outline: 2px solid var(--ink) !important;
+  outline-offset: 2px;
+}
+
+/* 正文里空的标签项（tags 列表末尾多写了一个 "- "）不渲染成空白黄块 */
+.post-tag:empty,
+.tag-chip:empty {
+  display: none;
+}
+
+
+/* ==========================================================
+   十四、暗色主题：强调色来自 #F7F609 的相反色
+   #F7F609 的相反色 = #0809F6（蓝）。纯蓝在深底上对比度
+   只有约 2:1，正文/链接不可读，所以取同色相、提高明度的
+   #8E8FFF / #B7B8FF。其余组件沿用 Skill 的平色画布、
+   细描边和局部硬边阴影，与亮色一一对应。
+   ========================================================== */
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* 底色：亮色同构的平色画布，去掉原主题的星空渐变和背景照片 */
+  --bg-deep: #141417;
+  --bg-primary: #141417;
+  --bg-secondary: #1d1d22;
+  --bg-tertiary: #232329;
+  --text-primary: #f2f2f4;
+  --text-secondary: #b9b9c0;
+  --text-muted: #90909a;
+
+  /* 强调色：#F7F609 的相反色 #0809F6 提亮到深底可读 */
+  --accent-primary: #8e8fff;
+  --accent-mid-purple: #8e8fff;
+  --accent-light-purple: #b7b8ff;
+  --accent-secondary: #22d3ee; /* 其余不变 */
+  --accent-hover: #b7b8ff;
+
+  --glass-surface: #1d1d22;
+  --glass-block: #1d1d22;
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --border-color: rgba(255, 255, 255, 0.16);
+
+  --accent-primary-rgba-03: rgba(142, 143, 255, 0.3);
+  --accent-primary-rgba-05: rgba(142, 143, 255, 0.5);
+  --accent-light-purple-rgba-01: rgba(183, 184, 255, 0.1);
+  --accent-light-purple-rgba-03: rgba(183, 184, 255, 0.3);
+  --accent-mid-purple-rgba-05: rgba(142, 143, 255, 0.05);
+  --accent-mid-purple-rgba-01: rgba(142, 143, 255, 0.1);
+  --accent-mid-purple-rgba-02: rgba(142, 143, 255, 0.2);
+
+  --tag-bg: rgba(142, 143, 255, 0.18);
+  --tag-color: #c7c8ff;
+
+  --yellow-accent: #8e8fff;
+  --yellow-hover: #b7b8ff;
+
+  --ink: #f2f2f4;
+  --ink-border: rgba(255, 255, 255, 0.16);
+  --ink-border-strong: #f2f2f4;
+}
+
+
+/* ==========================================================
+   十四·补充、暗色主题：同一套 Skill 语言，只换强调色
+   底色/文字/卡片结构与亮色一一对应；强调色取自 #F7F609 的
+   相反色相（蓝），提亮到深底可读：#8E8FFF / #B7B8FF。
+   蓝色实心块统一配深色文字，和亮色“黄底墨字”同一逻辑。
+   ========================================================== */
+
+html[data-theme="dark"] body {
+  background-color: #141417;
+  background-image: none !important;
+  background-attachment: scroll !important;
+  background-size: auto !important;
+}
+
+html[data-theme="dark"] body::before {
+  display: none;
+}
+
+html[data-theme="dark"] ::selection {
+  background-color: #8e8fff;
+  color: #141417;
+}
+
+html[data-theme="dark"] :focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+html[data-theme="dark"] a:focus-visible,
+html[data-theme="dark"] button:focus-visible,
+html[data-theme="dark"] [role="button"]:focus-visible,
+html[data-theme="dark"] input:focus-visible,
+html[data-theme="dark"] select:focus-visible,
+html[data-theme="dark"] textarea:focus-visible,
+html[data-theme="dark"] summary:focus-visible {
+  outline: 2px solid var(--ink) !important;
+  outline-offset: 2px;
+}
+
+/* ---- 顶栏与导航 ---- */
+
+html[data-theme="dark"] .sticky-header {
+  background-color: #141417;
+  border-bottom: 1px solid var(--ink-border);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html[data-theme="dark"] .header-logo .logo-link:hover,
+html[data-theme="dark"] .search-toggle:hover,
+html[data-theme="dark"] .theme-toggle:hover,
+html[data-theme="dark"] .mobile-menu-toggle:hover {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .menu-link {
+  color: var(--text-secondary);
+  border-radius: 6px;
+}
+
+html[data-theme="dark"] .menu-link:hover {
+  color: var(--ink);
+  background-color: rgba(142, 143, 255, 0.2);
+}
+
+/* 当前页：蓝色实心块 + 深色文字 */
+html[data-theme="dark"] .menu-link.active,
+html[data-theme="dark"] .mobile-menu-nav .menu-link.active {
+  color: #141417;
+  background-color: #8e8fff;
+  font-weight: 600;
+}
+
+html[data-theme="dark"] .mobile-menu-nav .menu-link:hover,
+html[data-theme="dark"] .mobile-menu-nav .menu-link:focus,
+html[data-theme="dark"] .mobile-menu-close:hover,
+html[data-theme="dark"] .mobile-search-toggle:hover {
+  color: var(--ink);
+  background-color: rgba(142, 143, 255, 0.16);
+}
+
+html[data-theme="dark"] .mobile-menu-content {
+  background-color: #141417;
+  border-right: 1px solid var(--ink-border);
+}
+
+html[data-theme="dark"] .mobile-menu-header,
+html[data-theme="dark"] .mobile-menu-footer {
+  border-color: var(--ink-border);
+}
+
+/* ---- 首页 Hero ---- */
+
+html[data-theme="dark"] .hero-title::after {
+  content: "";
+  display: block;
+  width: 96px;
+  height: 8px;
+  margin-top: 1.25rem;
+  background-color: #8e8fff;
+  border-radius: 2px;
+}
+
+html[data-theme="dark"] .hero-subtitle {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+html[data-theme="dark"] .hero-logo,
+html[data-theme="dark"] .hero-logo-placeholder {
+  filter: none;
+}
+
+html[data-theme="dark"] .hero-logo-placeholder {
+  background-color: #1d1d22;
+  border: 2px solid var(--ink-border-strong);
+}
+
+/* ---- 列表页大标题 ---- */
+
+html[data-theme="dark"] .list-title-line2,
+html[data-theme="dark"] .tags-title .list-title-line2 {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ink);
+  text-stroke: 2px var(--ink);
+}
+
+html[data-theme="dark"] .list-title::after,
+html[data-theme="dark"] .tags-title::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 7px;
+  margin: 0.75rem auto 0;
+  background-color: #8e8fff;
+  border-radius: 2px;
+}
+
+html[data-theme="dark"] .list-description {
+  color: var(--text-secondary);
+}
+
+/* ---- 卡片与容器 ---- */
+
+html[data-theme="dark"] .post-card,
+html[data-theme="dark"] .filter-accordion,
+html[data-theme="dark"] .tags-cloud,
+html[data-theme="dark"] .pagination,
+html[data-theme="dark"] .links-container,
+html[data-theme="dark"] .tools-container,
+html[data-theme="dark"] .gallery-container,
+html[data-theme="dark"] .tools-nav,
+html[data-theme="dark"] .links-item-link,
+html[data-theme="dark"] .tools-card,
+html[data-theme="dark"] .gallery-item,
+html[data-theme="dark"] .related-post-item,
+html[data-theme="dark"] .nav-link {
+  background-color: #1d1d22;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  border-color: var(--ink-border);
+}
+
+html[data-theme="dark"] .links-container,
+html[data-theme="dark"] .tools-container,
+html[data-theme="dark"] .gallery-container {
+  border: 1px solid var(--ink-border);
+}
+
+html[data-theme="dark"] .post-card:hover,
+html[data-theme="dark"] .links-item-link:hover,
+html[data-theme="dark"] .tools-card:hover,
+html[data-theme="dark"] .gallery-item:hover {
+  border-color: #b7b8ff;
+  box-shadow: 4px 4px 0 rgba(142, 143, 255, 0.45);
+  transform: translate(-2px, -2px);
+}
+
+html[data-theme="dark"] .post-title a {
+  text-decoration-color: transparent;
+}
+
+html[data-theme="dark"] .post-card:hover .post-title a {
+  text-decoration-color: #8e8fff;
+  text-decoration-thickness: 3px;
+}
+
+html[data-theme="dark"] .post-description {
+  color: var(--text-secondary);
+}
+
+/* ---- 标签 ---- */
+
+html[data-theme="dark"] .post-tag,
+html[data-theme="dark"] .tag-chip-large {
+  background-color: rgba(142, 143, 255, 0.18);
+  color: #c7c8ff;
+  border: 1px solid rgba(183, 184, 255, 0.28);
+  border-radius: 4px;
+}
+
+html[data-theme="dark"] .post-tag:hover,
+html[data-theme="dark"] .tag-item:hover .tag-chip-large {
+  background-color: #8e8fff;
+  color: #141417;
+  border-color: #b7b8ff;
+  box-shadow: 2px 2px 0 rgba(183, 184, 255, 0.5);
+}
+
+html[data-theme="dark"] .tag-count-badge {
+  color: var(--text-secondary);
+}
+
+/* ---- 筛选器、输入框、分页 ---- */
+
+html[data-theme="dark"] .filter-toggle-btn:hover,
+html[data-theme="dark"] .toc-toggle:hover {
+  background-color: rgba(142, 143, 255, 0.16);
+}
+
+html[data-theme="dark"] .tag-search-input,
+html[data-theme="dark"] .filter-select,
+html[data-theme="dark"] .filter-tag-label,
+html[data-theme="dark"] .filter-clear-btn {
+  background-color: #1d1d22;
+  border: 1px solid var(--ink-border);
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .tag-search-input:focus,
+html[data-theme="dark"] .filter-select:focus {
+  outline: none;
+  border-color: #b7b8ff;
+  box-shadow: 3px 3px 0 rgba(142, 143, 255, 0.45);
+}
+
+html[data-theme="dark"] .filter-tag-checkbox:hover .filter-tag-label {
+  border-color: #b7b8ff;
+  background-color: rgba(142, 143, 255, 0.16);
+}
+
+html[data-theme="dark"] .filter-tag-input:checked + .filter-tag-label {
+  background-color: #8e8fff;
+  border-color: #b7b8ff;
+  color: #141417;
+  font-weight: 600;
+  box-shadow: 2px 2px 0 rgba(183, 184, 255, 0.5);
+}
+
+html[data-theme="dark"] .filter-clear-btn:hover {
+  background-color: #8e8fff;
+  border-color: #b7b8ff;
+  color: #141417;
+  box-shadow: 2px 2px 0 rgba(183, 184, 255, 0.5);
+  transform: translate(-1px, -1px);
+}
+
+html[data-theme="dark"] .tag-search-result-item:hover,
+html[data-theme="dark"] .tag-search-result-item.selected {
+  background-color: rgba(142, 143, 255, 0.18);
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .pagination-link,
+html[data-theme="dark"] .pagination-number {
+  background-color: #1d1d22;
+  border: 1px solid var(--ink-border);
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .pagination-link:hover:not(.pagination-link-disabled),
+html[data-theme="dark"] .pagination-number:hover {
+  background-color: #8e8fff;
+  border-color: #b7b8ff;
+  color: #141417;
+  box-shadow: 2px 2px 0 rgba(183, 184, 255, 0.5);
+  transform: translate(-1px, -1px);
+}
+
+html[data-theme="dark"] .pagination-number-current,
+html[data-theme="dark"] .pagination-number-current:hover {
+  background-color: #8e8fff;
+  border-color: #b7b8ff;
+  color: #141417;
+  box-shadow: 2px 2px 0 rgba(183, 184, 255, 0.5);
+  transform: none;
+}
+
+html[data-theme="dark"] .pagination-current {
+  color: #141417;
+  background-color: rgba(142, 143, 255, 0.6);
+  padding: 0 0.25em;
+  border-radius: 3px;
+}
+
+/* ---- 文章页 ---- */
+
+html[data-theme="dark"] .single-post {
+  background-color: #1d1d22;
+  border: 1px solid var(--ink-border);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: none;
+}
+
+html[data-theme="dark"] .post-content-main a,
+html[data-theme="dark"] .about-content-full a {
+  color: #c7c8ff;
+  text-decoration: underline;
+  text-decoration-color: #8e8fff;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+html[data-theme="dark"] .post-content-main a:hover,
+html[data-theme="dark"] .about-content-full a:hover {
+  color: #141417;
+  background-color: #8e8fff;
+  text-decoration-color: transparent;
+}
+
+html[data-theme="dark"] .post-content-main .alert-content a,
+html[data-theme="dark"] .links-contact a {
+  color: #c7c8ff;
+  background-color: transparent;
+}
+
+html[data-theme="dark"] .post-content-main .alert-content a:hover,
+html[data-theme="dark"] .links-contact a:hover {
+  color: #141417;
+  background-color: #8e8fff;
+}
+
+html[data-theme="dark"] .breadcrumb-list a,
+html[data-theme="dark"] .related-post-link strong {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .related-post-link strong {
+  text-decoration: underline;
+  text-decoration-color: #8e8fff;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+html[data-theme="dark"] .post-toc {
+  background-color: #1d1d22;
+  background-image: none;
+  border: 1px solid var(--ink-border);
+}
+
+html[data-theme="dark"] .post-toc::before {
+  background-color: transparent;
+}
+
+html[data-theme="dark"] .toc-burger-icon {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .toc-nav a:hover {
+  color: var(--ink);
+  background-color: rgba(142, 143, 255, 0.16);
+}
+
+html[data-theme="dark"] .toc-nav a.active {
+  color: var(--ink);
+  background-color: rgba(142, 143, 255, 0.26);
+  border-left-color: #8e8fff;
+  font-weight: 600;
+}
+
+html[data-theme="dark"] .nav-link:hover {
+  background-color: #1d1d22;
+  border: 1px solid #b7b8ff;
+  box-shadow: 3px 3px 0 rgba(142, 143, 255, 0.45);
+}
+
+html[data-theme="dark"] .post-content-main blockquote.blockquote-regular {
+  border-left: 4px solid #8e8fff;
+  background-color: rgba(142, 143, 255, 0.12);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* ---- 关于页、页脚 ---- */
+
+html[data-theme="dark"] .about-page-avatar {
+  border: 3px solid var(--ink);
+}
+
+html[data-theme="dark"] .site-footer {
+  background-color: transparent;
+  border-top: 1px solid var(--ink-border);
+}
+
+html[data-theme="dark"] .social-link {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .social-link:hover {
+  color: var(--ink);
+}
+
+/* ---- 搜索面板 ---- */
+
+html[data-theme="dark"] .search-modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+html[data-theme="dark"] .search-input-wrapper {
+  background: #1d1d22;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 6px 6px 0 rgba(142, 143, 255, 0.4);
+}
+
+html[data-theme="dark"] .search-input {
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .search-input::placeholder {
+  color: #8f8f99;
+}
+
+html[data-theme="dark"] .search-input-icon,
+html[data-theme="dark"] .search-input-clear,
+html[data-theme="dark"] .search-modal-close {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .search-input-clear:hover,
+html[data-theme="dark"] .search-modal-close:hover {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .search-results {
+  background: #1d1d22;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 6px 6px 0 rgba(142, 143, 255, 0.4);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html[data-theme="dark"] .search-result-item {
+  border-bottom-color: var(--ink-border);
+}
+
+html[data-theme="dark"] .search-result-item:hover {
+  background-color: rgba(142, 143, 255, 0.16);
+}
+
+html[data-theme="dark"] .search-result-title {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .search-result-title mark,
+html[data-theme="dark"] .search-result-summary mark {
+  background-color: #8e8fff;
+  color: #141417;
+}
+
+html[data-theme="dark"] .search-result-summary {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .search-result-date,
+html[data-theme="dark"] .search-result-empty {
+  color: var(--text-muted);
+}
+
+/* ---- 画廊、友链、工具页 ---- */
+
+html[data-theme="dark"] .gallery-filter-btn {
+  background-color: #1d1d22;
+  border: 1px solid var(--ink-border);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .gallery-filter-btn:hover {
+  border-color: #b7b8ff;
+  color: var(--ink);
+  background-color: rgba(142, 143, 255, 0.16);
+}
+
+html[data-theme="dark"] .gallery-filter-btn.is-active {
+  background-color: #8e8fff;
+  border-color: #b7b8ff;
+  color: #141417;
+  font-weight: 600;
+  box-shadow: 2px 2px 0 rgba(183, 184, 255, 0.5);
+}
+
+html[data-theme="dark"] .links-template {
+  background-color: rgba(142, 143, 255, 0.1);
+  border: 1px dashed rgba(183, 184, 255, 0.4);
+  color: #c7c8ff;
+}
+
+html[data-theme="dark"] .links-item-avatar-fallback,
+html[data-theme="dark"] .tools-card-icon-text {
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background-color: #8e8fff;
+  color: #141417;
+}
+
+html[data-theme="dark"] .tools-nav-link:hover {
+  background-color: rgba(142, 143, 255, 0.16);
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .tools-nav-link.is-active {
+  background-color: #8e8fff;
+  color: #141417;
+  box-shadow: inset 3px 0 0 #141417;
+}
+
+html[data-theme="dark"] .tools-nav-link.is-active .tools-nav-count {
+  background-color: #141417;
+  color: #b7b8ff;
+}
+
+html[data-theme="dark"] .tools-empty code,
+html[data-theme="dark"] .links-empty code {
+  background-color: rgba(142, 143, 255, 0.22);
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .scroll-to-top {
+  color: var(--ink);
+  background-color: #1d1d22;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 3px 3px 0 rgba(142, 143, 255, 0.45);
+}
+
+html[data-theme="dark"] .scroll-to-top:hover {
+  color: #141417;
+  background-color: #8e8fff;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 rgba(183, 184, 255, 0.5);
+}
+
+
+/* ==========================================================
+   十五、减少动态效果
+   ========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme] .post-card,
+  html[data-theme] .links-item-link,
+  html[data-theme] .tools-card,
+  html[data-theme] .gallery-item,
+  html[data-theme] .filter-clear-btn,
+  html[data-theme] .pagination-link,
+  html[data-theme] .pagination-number,
+  html[data-theme] .scroll-to-top,
+  html[data-theme] .nav-link {
+    transition: none;
+  }
+
+  html[data-theme] .post-card:hover,
+  html[data-theme] .links-item-link:hover,
+  html[data-theme] .tools-card:hover,
+  html[data-theme] .gallery-item:hover,
+  html[data-theme] .gallery-item:hover img,
+  html[data-theme] .filter-clear-btn:hover,
+  html[data-theme] .pagination-link:hover,
+  html[data-theme] .pagination-number:hover,
+  html[data-theme] .scroll-to-top:hover {
+    transform: none;
+  }
+
+  /* logo 悬浮动画在系统“减少动态效果”下停止，避免持续位移 */
+  html[data-theme] .hero-logo,
+  html[data-theme] .hero-logo-placeholder {
+    animation: none;
+  }
+}

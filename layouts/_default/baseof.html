@@ -12,8 +12,10 @@
     {{ if eq .Type "tools" }}
       <link rel="stylesheet" href="/css/tools.css">
     {{ end }}
+    {{/* Style Skill 主题层：最后加载，覆盖主题与页面样式 */}}
+    <link rel="stylesheet" href="/css/style-skill.css">
   </head>
-  <body class="flex flex-col min-h-screen{{ if eq site.Language.LanguageDirection "rtl" }} rtl{{ end }}">
+  <body class="flex flex-col min-h-screen{{ if eq site.Language.LanguageDirection "rtl" }} rtl{{ end }}"{{ if .IsHome }} data-home="true"{{ end }}>
     <a href="#main-content" class="skip-to-main" aria-label="{{ i18n "skipToMain" }}"
       >{{ i18n "skipToMain" }}</a
     >
