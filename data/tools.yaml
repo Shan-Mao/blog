@@ -32,6 +32,10 @@
 #  想调顺序就上下移动这几段；不想要的分类直接删掉即可。
 # ------------------------------------------------------------
 categories:
+  - id: shanmao
+    name: 山猫自己的
+    description: 自己的小玩意
+
   - id: download
     name: 下载工具
     description: 各种下载通道
@@ -49,6 +53,13 @@ categories:
 #  新增一条就照着下面的格式往下加，category 写分类的 id。
 # ------------------------------------------------------------
 tools:
+  # ---------- 工具 ----------
+  - name: world-app
+    url: https://wapp.shanmao.icu/
+    category: shanmao
+    description: 山猫的动态app
+    icon: https://img.shanmao.icu/icon/world-app-icon-1024.png
+
   # ---------- 下载 工具 ----------
   - name: X
     url: https://savetwitter.net/zh-cn3
@@ -74,12 +85,6 @@ tools:
     description: Pinterest视频下载
     icon: https://img.shanmao.icu/icon/Pinterest.png
 
-  - name: 占位
-    url: 占位
-    category: download
-    description: 占位
-
-  # ---------- 工具 ----------
   - name: 占位
     url: 占位
     category: download
