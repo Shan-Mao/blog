@@ -1,0 +1,183 @@
+{{ define "main" }}
+  {{ $apiBase := site.Params.moments.apiBase | default "https://api.wapp.shanmao.icu" }}
+  {{ $pageSize := site.Params.moments.pageSize | default 10 }}
+
+  <div
+    class="moments-container"
+    id="moments-app"
+    data-api-base="{{ $apiBase }}"
+    data-page-size="{{ $pageSize }}">
+    <header class="list-header">
+      <h1 class="list-title">
+        <span class="list-title-line2">MOMENTS</span>
+      </h1>
+      {{ with .Description }}
+        <p class="list-description">{{ . }}</p>
+      {{ end }}
+    </header>
+
+    <div class="moments-toolbar">
+      <p class="moments-count" id="moments-count"></p>
+      <button id="moments-refresh" class="moments-btn" type="button">刷新</button>
+    </div>
+
+    <p id="moments-status" class="moments-status" role="status" aria-live="polite"></p>
+
+    <details class="moments-auth" id="moments-auth">
+      <summary class="moments-auth-summary">
+        <span class="moments-auth-title">登录后发布 / 删除</span>
+        <span class="moments-auth-state" id="moments-auth-state">未登录</span>
+      </summary>
+
+      <div class="moments-auth-body">
+        <form id="moments-login-form" class="moments-form" novalidate>
+          <div class="moments-field">
+            <label for="moments-email">邮箱</label>
+            <input
+              id="moments-email"
+              name="email"
+              type="email"
+              inputmode="email"
+              autocomplete="username"
+              placeholder="you@example.com"
+              required>
+          </div>
+          <div class="moments-field">
+            <label for="moments-password">密码</label>
+            <input
+              id="moments-password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              minlength="8"
+              required>
+          </div>
+          <div class="moments-form-actions">
+            <button id="moments-login-btn" class="moments-btn moments-btn-primary" type="submit">
+              登录
+            </button>
+          </div>
+        </form>
+
+        <div id="moments-account" class="moments-account" hidden>
+          <p class="moments-account-text">
+            已登录：<strong id="moments-user-name"></strong>
+          </p>
+          <button id="moments-logout" class="moments-btn" type="button">退出登录</button>
+        </div>
+
+        <form id="moments-compose-form" class="moments-form moments-compose" hidden novalidate>
+          <div class="moments-field">
+            <label for="moments-content">正文</label>
+            <textarea
+              id="moments-content"
+              rows="4"
+              maxlength="5000"
+              placeholder="想说点什么…"></textarea>
+            <p class="moments-counter">
+              <span id="moments-content-count">0</span> /
+              <span id="moments-content-max">5000</span>
+            </p>
+          </div>
+
+          <div class="moments-field">
+            <label for="moments-files">图片（可选）</label>
+            <input
+              id="moments-files"
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              multiple>
+            <p class="moments-hint" id="moments-files-hint">
+              支持 JPEG、PNG、WebP、GIF；单张不超过 10 MB；最多 4 张。
+            </p>
+          </div>
+
+          <div id="moments-previews" class="moments-previews" hidden></div>
+          <p id="moments-upload-status" class="moments-upload-status" role="status" aria-live="polite"></p>
+
+          <div class="moments-form-actions">
+            <button id="moments-publish-btn" class="moments-btn moments-btn-primary" type="submit">
+              发布
+            </button>
+          </div>
+        </form>
+      </div>
+    </details>
+
+    <section class="moments-timeline-section" aria-label="动态时间线">
+      <div id="moments-loading" class="moments-loading" hidden>
+        <span class="moments-spinner" aria-hidden="true"></span>
+        <span>正在加载动态…</span>
+      </div>
+
+      <p id="moments-error" class="moments-error" role="alert" hidden></p>
+      <button id="moments-retry" class="moments-btn moments-retry" type="button" hidden>
+        重试
+      </button>
+
+      <div id="moments-timeline" class="moments-list" aria-busy="false"></div>
+
+      <p id="moments-empty" class="moments-empty" hidden>还没有动态。登录后可以发布第一条。</p>
+
+      <div class="moments-more-wrap">
+        <button id="moments-more" class="moments-btn" type="button" hidden>加载更多</button>
+      </div>
+    </section>
+
+    <template id="moments-card-template">
+      <article class="moments-card">
+        <header class="moments-card-head">
+          <div class="moments-author">
+            <img
+              class="moments-avatar-image"
+              alt=""
+              width="40"
+              height="40"
+              loading="lazy"
+              decoding="async"
+              referrerpolicy="no-referrer"
+              hidden>
+            <span class="moments-avatar-fallback" aria-hidden="true"></span>
+            <div class="moments-author-text">
+              <span class="moments-author-name"></span>
+              <time class="moments-time"></time>
+            </div>
+          </div>
+          <button class="moments-delete" type="button" hidden>删除</button>
+        </header>
+
+        <div class="moments-content" hidden></div>
+        <div class="moments-images" hidden></div>
+      </article>
+    </template>
+
+    <template id="moments-image-template">
+      <button class="moments-image-button" type="button">
+        <img
+          class="moments-image"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          referrerpolicy="no-referrer">
+      </button>
+    </template>
+
+    <dialog id="moments-lightbox" class="moments-lightbox" aria-label="图片查看器">
+      <div class="moments-lightbox-inner">
+        <button
+          id="moments-lightbox-close"
+          class="moments-lightbox-close"
+          type="button"
+          aria-label="关闭">
+          &times;
+        </button>
+        <img id="moments-lightbox-image" class="moments-lightbox-image" alt="">
+        <p id="moments-lightbox-caption" class="moments-lightbox-caption"></p>
+      </div>
+    </dialog>
+
+    <noscript>
+      <p class="moments-empty">动态页面需要启用 JavaScript 才能显示。</p>
+    </noscript>
+  </div>
+{{ end }}

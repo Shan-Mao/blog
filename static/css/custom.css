@@ -362,3 +362,25 @@ html[data-theme="dark"] .single-post {
 
   line-height: 1.33 !important;
 }
+
+/* ==========================================================
+   导航响应式修正
+   ----------------------------------------------------------
+   新增“动态”菜单后，769–1024px 区间的桌面菜单会挤压或溢出。
+   该区间直接复用主题已有的移动端汉堡菜单，避免横向滚动。
+   ========================================================== */
+@media (max-width: 1024px) {
+  .mobile-menu-toggle {
+    display: flex;
+    order: -1;
+  }
+
+  .header-menu .menu-list {
+    display: none;
+  }
+
+  .header-menu {
+    gap: var(--spacing-xs);
+    flex-shrink: 0;
+  }
+}

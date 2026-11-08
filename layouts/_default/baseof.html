@@ -12,6 +12,9 @@
     {{ if eq .Type "tools" }}
       <link rel="stylesheet" href="/css/tools.css">
     {{ end }}
+    {{ if eq .Type "moments" }}
+      <link rel="stylesheet" href="/css/moments.css">
+    {{ end }}
     {{/* Style Skill 主题层：最后加载，覆盖主题与页面样式 */}}
     <link rel="stylesheet" href="/css/style-skill.css">
   </head>
@@ -66,6 +69,10 @@
 
 {{ if eq .Type "tools" }}
 <script src="/js/tools.js" defer></script>
+{{ end }}
+
+{{ if eq .Type "moments" }}
+<script src="/js/moments.js" defer></script>
 {{ end }}
   </body>
 </html>

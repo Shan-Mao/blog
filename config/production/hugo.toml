@@ -1,0 +1,5 @@
+# 生产构建环境覆盖。
+# Cloudflare Pages 的构建命令是 `hugo`，默认 environment=production；
+# 本地 `hugo server` 默认 environment=development，继续使用根 hugo.toml 的
+# http://localhost:1313/，不会受这里影响。
+baseURL = 'https://shanmao.icu/'

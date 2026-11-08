@@ -25,6 +25,11 @@ theme = 'mana'
   [params.avatar.about]
     assetPath = "images/logo.png"
 
+# 动态页：沿用 World App 现有 API
+[params.moments]
+  apiBase = 'https://api.wapp.shanmao.icu'
+  pageSize = 10
+
 # 导航栏
 [[menus.main]]
   name = '首页'
@@ -45,6 +50,11 @@ theme = 'mana'
   name = '标签'
   pageRef = '/tags'
   weight = 30
+
+[[menus.main]]
+  name = '动态'
+  pageRef = '/moments'
+  weight = 34
 
 [[menus.main]]
   name = '画廊'
